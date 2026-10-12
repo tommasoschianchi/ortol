@@ -54,6 +54,10 @@ Il backend serve anche l'app React. Per cambiare la cartella dei dati: `Storage_
 
 La base di conoscenza (`backend/Ortol.Api/Data/plants.json`) copre 27 specie con nome scientifico, famiglia, soglie termiche, GDD, coefficienti colturali, profondità radicale, pH, sesto d'impianto, concimazione, segnali di maturazione, consociazioni e avversità. I valori sono riferimenti agronomici medi: varietà, esposizione e microclima possono spostarli. Il file si può ampliare senza toccare il codice.
 
+## Database
+
+Il modello dei dati (diagramma relazionale, tabelle, chiavi primarie ed esterne) è documentato in [`docs/DATABASE.md`](docs/DATABASE.md); lo script PostgreSQL è [`docs/schema.sql`](docs/schema.sql).
+
 ## API principali
 
 | Metodo | Percorso | Descrizione |
