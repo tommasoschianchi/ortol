@@ -134,3 +134,66 @@ export function autoLayout(W: number, L: number, picks: SpeciesSummary[], c: Cul
   }
   return { lots, skipped }
 }
+
+// ---------- Consociazioni tra lotti vicini ----------
+
+/** Distanza (m) tra due rettangoli; 0 se si toccano o si sovrappongono. */
+export function rectDistance(a: Rect, b: Rect) {
+  const dx = Math.max(0, b.x - (a.x + a.w), a.x - (b.x + b.w))
+  const dy = Math.max(0, b.y - (a.y + a.h), a.y - (b.y + b.h))
+  return Math.hypot(dx, dy)
+}
+
+/** Entro questa distanza due colture si influenzano (radici, odori, ombra, insetti). */
+export const NEIGHBOR_DISTANCE_M = 1
+
+export type Relation = 'good' | 'bad' | null
+
+/** Sfavorevole se almeno una delle due schede lo indica; favorevole se lo indica almeno una e nessuna è sfavorevole. */
+export function relation(a: SpeciesSummary, b: SpeciesSummary): Relation {
+  if (a.id === b.id) return null
+  if (a.antagonists.includes(b.id) || b.antagonists.includes(a.id)) return 'bad'
+  if (a.companions.includes(b.id) || b.companions.includes(a.id)) return 'good'
+  return null
+}
+
+export interface Association { kind: 'good' | 'bad'; a: EditLot; b: EditLot; sa: SpeciesSummary; sb: SpeciesSummary; dist: number }
+
+export function associations(lots: EditLot[], species: Map<string, SpeciesSummary>): Association[] {
+  const out: Association[] = []
+  for (let i = 0; i < lots.length; i++)
+    for (let j = i + 1; j < lots.length; j++) {
+      const a = lots[i], b = lots[j]
+      const sa = a.speciesId ? species.get(a.speciesId) : undefined
+      const sb = b.speciesId ? species.get(b.speciesId) : undefined
+      if (!sa || !sb) continue
+      const dist = rectDistance(a, b)
+      if (dist > NEIGHBOR_DISTANCE_M) continue
+      const kind = relation(sa, sb)
+      if (kind) out.push({ kind, a, b, sa, sb, dist })
+    }
+  return out.sort((x, y) => (x.kind === y.kind ? x.dist - y.dist : x.kind === 'bad' ? -1 : 1))
+}
+
+/** Punteggio della disposizione: +1 per ogni consociazione favorevole, −3 per ogni sfavorevole. */
+export const layoutScore = (lots: EditLot[], species: Map<string, SpeciesSummary>) =>
+  associations(lots, species).reduce((s, x) => s + (x.kind === 'good' ? 1 : -3), 0)
+
+/**
+ * Cerca lo scambio di colture tra due lotti (anche verso un lotto libero) che migliora di più la disposizione.
+ * Considera solo colture non ancora piantate: quelle già in terra non si spostano.
+ */
+export function bestSwap(lots: EditLot[], species: Map<string, SpeciesSummary>) {
+  const base = layoutScore(lots, species)
+  let best: { a: EditLot; b: EditLot; gain: number } | null = null
+  const movable = (l: EditLot) => !l.cropSpeciesId || l.cropSpeciesId !== l.speciesId
+  for (let i = 0; i < lots.length; i++)
+    for (let j = i + 1; j < lots.length; j++) {
+      const a = lots[i], b = lots[j]
+      if (a.speciesId === b.speciesId || !movable(a) || !movable(b)) continue
+      const swapped = lots.map(l => l.key === a.key ? { ...l, speciesId: b.speciesId } : l.key === b.key ? { ...l, speciesId: a.speciesId } : l)
+      const gain = layoutScore(swapped, species) - base
+      if (gain > 0 && (!best || gain > best.gain)) best = { a, b, gain }
+    }
+  return best
+}

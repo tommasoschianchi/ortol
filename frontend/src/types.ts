@@ -33,6 +33,8 @@ export interface SpeciesSummary {
   plantingMethod: string; spacingRowCm: number; spacingPlantCm: number; daysToMaturity: number
   frostTender: boolean; nutrientDemand: string; yieldKgM2: number; container: ContainerInfo
   temperature: { optMin: number; optMax: number; growthMin: number; growthMax: number; minSurvival: number; plantingMin: number; plantingMax: number }
+  /** Consociazioni: id delle specie favorevoli / sfavorevoli (anche nomi fuori catalogo). */
+  companions: string[]; antagonists: string[]
 }
 
 export interface MonthWindow { month: number; status: WindowStatus; daysToHarvest?: number }

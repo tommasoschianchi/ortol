@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { area, defaultDepth, estimatedYield, newKey, overlaps, plantsInLot, potLiters, round2 } from '../agro'
+import { area, associations, bestSwap, defaultDepth, estimatedYield, newKey, overlaps, plantsInLot, potLiters, round2, type Association } from '../agro'
 import { fmtNum, todayIso } from '../api'
 import type { Cultivation, EditLot, PlantListItem, Recommendation } from '../types'
 import AddCropModal from './AddCropModal'
@@ -57,6 +57,22 @@ export default function LayoutEditor({ value: v, onChange, cultivation, species,
   const pot = cultivation === 'Vaso'
   const lot = v.lots.find(l => l.key === sel)
   const byId = useMemo(() => new Map(species.map(s => [s.species.id, s])), [species])
+  const speciesMap = useMemo(() => new Map(species.map(s => [s.species.id, s.species])), [species])
+
+  /** Scambia le colture (non ancora piantate) di due lotti; i nomi seguono la coltura se erano quelli predefiniti. */
+  const swapCrops = (a: EditLot, b: EditLot) => {
+    const nameOf = (l: EditLot) => l.speciesId ? speciesMap.get(l.speciesId)?.name : undefined
+    const followName = (l: EditLot, other: EditLot) => {
+      const own = nameOf(l)
+      if (!own || (l.name !== own && l.name !== `Vaso ${own.toLowerCase()}`)) return l.name
+      const next = nameOf(other)
+      return next ? (pot ? `Vaso ${next.toLowerCase()}` : next) : (pot ? 'Vaso libero' : 'Lotto libero')
+    }
+    setLots(v.lots.map(l =>
+      l.key === a.key ? { ...l, speciesId: b.speciesId, plantedOn: b.plantedOn ?? todayIso(), name: followName(a, b) }
+      : l.key === b.key ? { ...l, speciesId: a.speciesId, plantedOn: a.plantedOn ?? todayIso(), name: followName(b, a) }
+      : l))
+  }
 
   const setLots = (lots: EditLot[]) => onChange({ ...v, lots })
   const patch = (key: string, p: Partial<EditLot>) => setLots(v.lots.map(l => (l.key === key ? { ...l, ...p } : l)))
@@ -140,6 +156,7 @@ export default function LayoutEditor({ value: v, onChange, cultivation, species,
             Trascina un {pot ? 'vaso' : 'lotto'} per spostarlo e le maniglie per ridimensionarlo (aggancio a 5 cm).
             Da tastiera: frecce per spostare, Alt + frecce per ridimensionare, Maiuscole per passi di 50 cm.
           </p>
+          <AssociationsCard lots={v.lots} species={speciesMap} pot={pot} onSelect={setSel} onSwap={swapCrops} />
           {msg && <div className="notice" style={{ marginTop: 8 }}>{msg}</div>}
           {problems.length > 0 && <div className="error" style={{ marginTop: 8 }}>{problems.join(' ')}</div>}
         </div>
@@ -278,5 +295,62 @@ function LotPanel({ lot, pot, info, item, recList, otherList, recommendedNow, on
       )}
       {warnings.map(w => <p key={w} className="notice">{w}</p>)}
     </div>
+  )
+}
+
+/** Card che commenta la disposizione: consociazioni sfavorevoli da correggere e consociazioni riuscite. */
+function AssociationsCard({ lots, species, pot, onSelect, onSwap }: {
+  lots: EditLot[]; species: Map<string, import('../types').SpeciesSummary>; pot: boolean
+  onSelect: (key: string) => void; onSwap: (a: EditLot, b: EditLot) => void
+}) {
+  const [all, setAll] = useState(false)
+  const list = useMemo(() => associations(lots, species), [lots, species])
+  const swap = useMemo(() => list.some(x => x.kind === 'bad') ? bestSwap(lots, species) : null, [list, lots, species])
+  const planted = lots.filter(l => l.speciesId).length
+  if (planted < 2) return null
+  const bad = list.filter(x => x.kind === 'bad'), good = list.filter(x => x.kind === 'good')
+  const shown = all ? list : list.slice(0, 4)
+  const unit = pot ? 'vaso' : 'lotto'
+  const where = (x: Association) => x.dist < 0.01 ? 'confinanti' : `a ${Math.round(x.dist * 100)} cm`
+  const label = (l: EditLot, sp: { emoji: string; name: string }) => <><span aria-hidden="true">{sp.emoji}</span> <b>{sp.name}</b>{l.name !== sp.name ? <span className="muted"> ({l.name})</span> : null}</>
+  const name = (id?: string) => (id && species.get(id)?.name) || `${unit} libero`
+
+  return (
+    <section className={`assoc${bad.length ? ' has-bad' : good.length ? ' has-good' : ''}`} aria-live="polite">
+      <div className="assoc-head">
+        <b>Consociazioni</b>
+        <span className="small muted">entro 1 m</span>
+        <span className="spacer" />
+        {good.length > 0 && <span className="chip ok">✓ {good.length}</span>}
+        {bad.length > 0 && <span className="chip harvest">⚠ {bad.length}</span>}
+      </div>
+      {list.length === 0 && (
+        <p className="small muted">Nessuna coltura vicina si influenza. Avvicina specie amiche, per esempio pomodoro e basilico o carota e cipolla, per aiutarle a difendersi dai parassiti.</p>
+      )}
+      <ul>
+        {shown.map(x => (
+          <li key={`${x.a.key}-${x.b.key}`} className={x.kind}>
+            <button type="button" onClick={() => onSelect(x.a.key)}>
+              {x.kind === 'bad'
+                ? <>⚠️ {label(x.a, x.sa)} e {label(x.b, x.sb)} sono {where(x)} e si ostacolano.
+                    {x.a.cropSpeciesId === x.a.speciesId && x.b.cropSpeciesId === x.b.speciesId
+                      ? ' Sono già in terra: al prossimo ciclo evita di riaccostarli.'
+                      : ` Sposta uno dei due ad almeno 1 m.`}</>
+                : <>🌿 {label(x.a, x.sa)} accanto a {label(x.b, x.sb)}: ottima consociazione, si aiutano a vicenda.</>}
+            </button>
+          </li>
+        ))}
+      </ul>
+      {list.length > 4 && <button type="button" className="linkbtn" onClick={() => setAll(a => !a)}>{all ? 'Mostra meno' : `Mostra tutte (${list.length})`}</button>}
+      {swap && (
+        <div className="assoc-tip">
+          {swap.a.speciesId && swap.b.speciesId
+            ? <span>💡 Scambiando <b>{name(swap.a.speciesId)}</b> ({swap.a.name}) con <b>{name(swap.b.speciesId)}</b> ({swap.b.name}) la disposizione migliora.</span>
+            : <span>💡 Sposta <b>{name(swap.a.speciesId ?? swap.b.speciesId)}</b> in <b>{swap.a.speciesId ? swap.b.name : swap.a.name}</b>, che è libero: la disposizione migliora.</span>}
+          <button type="button" className="btn small sprout" onClick={() => onSwap(swap.a, swap.b)}>{swap.a.speciesId && swap.b.speciesId ? 'Scambia' : 'Sposta'}</button>
+        </div>
+      )}
+      {!bad.length && good.length > 0 && <p className="small assoc-praise">Bella disposizione: nessuna coltura vicina si ostacola. 👏</p>}
+    </section>
   )
 }

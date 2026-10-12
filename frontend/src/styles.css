@@ -318,6 +318,19 @@ ul.plain li { margin-bottom: 4px; }
 @keyframes grow { 0% { transform: scaleY(0.2); } 100% { transform: scaleY(1); } }
 .sprout-anim path { transform-origin: 50% 100%; animation: grow 1.2s ease-in-out infinite alternate; }
 
+/* ---------- consociazioni ---------- */
+.assoc { margin-top: 12px; border: 1px solid var(--line); border-left: 4px solid var(--line); border-radius: var(--r-md); background: var(--card); padding: 10px 14px; }
+.assoc.has-bad { border-left-color: var(--danger); }
+.assoc.has-good { border-left-color: var(--ok); }
+.assoc-head { display: flex; gap: 8px; align-items: baseline; margin-bottom: 4px; }
+.assoc ul { list-style: none; margin: 4px 0; padding: 0; display: grid; gap: 4px; }
+.assoc li button { width: 100%; text-align: left; background: none; border: 0; padding: 6px 8px; border-radius: var(--r-sm); cursor: pointer; font-size: 0.88rem; line-height: 1.4; }
+.assoc li.bad button { background: var(--harvest-soft); }
+.assoc li.good button { background: var(--ok-soft); }
+.assoc li button:hover { filter: brightness(0.97); }
+.assoc-tip { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-top: 8px; padding: 8px; border-radius: var(--r-sm); background: var(--feed-soft); font-size: 0.88rem; }
+.assoc-praise { color: var(--ok); margin: 6px 0 0; font-weight: 600; }
+
 /* ---------- calendario attività ---------- */
 .tcal { display: grid; gap: 10px; }
 .tcal-legend { display: flex; gap: 14px; flex-wrap: wrap; color: var(--muted); }

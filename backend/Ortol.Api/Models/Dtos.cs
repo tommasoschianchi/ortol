@@ -4,12 +4,14 @@ namespace Ortol.Api.Models;
 
 public record SpeciesSummary(string Id, string Name, string Emoji, string ScientificName, string Family, string Category,
     string PlantingMethod, int SpacingRowCm, int SpacingPlantCm, int DaysToMaturity, bool FrostTender, string NutrientDemand,
-    double YieldKgM2, ContainerInfo Container, TemperatureRange Temperature)
+    double YieldKgM2, ContainerInfo Container, TemperatureRange Temperature,
+    List<string> Companions, List<string> Antagonists)
 {
     public static SpeciesSummary From(PlantSpecies p) => new(p.Id, p.Name, p.Emoji, p.ScientificName, p.Family, p.Category,
         p.Planting.Method, p.Planting.SpacingRowCm, p.Planting.SpacingPlantCm, p.DaysToMaturity, p.Temperature.FrostTender, p.Nutrition.Demand,
         p.YieldKgM2, p.Container, new TemperatureRange(p.Temperature.OptMin, p.Temperature.OptMax, p.Temperature.GrowthMin,
-            p.Temperature.GrowthMax, p.Temperature.MinSurvival, p.Planting.TempMinMean, p.Planting.TempMaxMean));
+            p.Temperature.GrowthMax, p.Temperature.MinSurvival, p.Planting.TempMinMean, p.Planting.TempMaxMean),
+        p.Companions, p.Antagonists);
 }
 
 /// <summary>Soglie termiche (°C): fascia ottimale, limiti di crescita, minima sopportata, media adatta alla messa a dimora.</summary>
