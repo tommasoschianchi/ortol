@@ -45,6 +45,8 @@ export interface Recommendation {
   calendar: MonthWindow[]
   /** Ultimo giorno utile per seminare senza protezione; fine del periodo ideale; durata del ciclo / durata tipica. */
   openUntil?: string; idealUntil?: string; slowFactor?: number
+  /** Come è calcolata l'idoneità: messa a dimora oggi, raccolto previsto, giorni di meteo reale. */
+  fitnessNote?: string
 }
 
 export interface SuggestionsResponse { climate: ClimateProfile; recommendations: Recommendation[]; all: PlantListItem[]; date: string }
@@ -77,7 +79,8 @@ export interface PlantStatus {
   fertilize: { status: 'due' | 'soon' | 'ok' | 'none' | 'stop' | 'dormant'; nextDate?: string; daysUntil?: number; phase: string; advice: string; organic: string; message: string }
   harvest: { status: 'ready' | 'soon' | 'growing' | 'late' | 'uncertain' | 'ended'; expectedStart?: string; expectedEnd?: string; daysUntil?: number; signs: string; message: string }
   alerts: { level: 'danger' | 'warning' | 'info'; title: string; message: string }[]
-  fitness: number; fitnessLabel: string
+  /** Idoneità sul ciclo di questa coltura, dalla sua messa a dimora. */
+  fitness: number; fitnessLabel: string; fitnessNote?: string
   lotId?: string; areaM2: number; expectedYieldKg: number
   lastWatered?: string; lastFertilized?: string; harvestedKg: number; recentLogs: CareLog[]; logCount: number
 }
@@ -112,12 +115,13 @@ export interface PlantSpecies {
 }
 
 export interface FitnessResult {
-  speciesId: string; score: number; label: string
+  speciesId: string; score: number; label: string; start: string; expectedHarvest?: string; cycleDays: number; realDays: number
   components: { key: string; label: string; score: number; weight: number; detail: string }[]
   calendar: MonthWindow[]; bestMonth?: number; summary: string
 }
 
-export interface PlantListItem { species: SpeciesSummary; fitness?: number; fitnessLabel?: string; calendar?: MonthWindow[] }
+/** fitness = idoneità se messa a dimora oggi (meteo attuale e previsto + medie climatiche fino al raccolto). */
+export interface PlantListItem { species: SpeciesSummary; fitness?: number; fitnessLabel?: string; calendar?: MonthWindow[]; fitnessNote?: string }
 
 export interface HistoryItem {
   id: string; type: CareType; date: string; amount?: number; note?: string
@@ -128,6 +132,6 @@ export interface HistoryItem {
 export interface EditLot {
   key: string; id?: string; name: string; x: number; y: number; w: number; h: number; depthCm?: number
   speciesId?: string; plantedOn?: string
-  /** Coltura già presente nel lotto al momento dell'apertura dell'editor. */
-  cropSpeciesId?: string
+  /** Coltura già presente nel lotto al momento dell'apertura dell'editor, con la sua idoneità (calcolata dalla sua messa a dimora). */
+  cropSpeciesId?: string; cropFitness?: number
 }

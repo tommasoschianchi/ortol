@@ -3,10 +3,15 @@ using Ortol.Api.Models;
 namespace Ortol.Api.Services;
 
 /// <summary>Valori climatici normali per un singolo giorno dell'anno, interpolati dalle medie mensili.</summary>
-public record DayNormal(double TMax, double TMin, double TMean, double Et0, double PrecipPerDay)
+/// <remarks>
+/// Lo stesso tipo descrive anche un giorno di meteo reale o previsto (<see cref="Real"/>): in quel caso l'incertezza
+/// sulla minima (<see cref="FrostSigma"/>) e lo scarto verso la minima assoluta (<see cref="ExtremeOffset"/>) sono piccoli.
+/// </remarks>
+public record DayNormal(double TMax, double TMin, double TMean, double Et0, double PrecipPerDay,
+    double FrostSigma = 3.5, double ExtremeOffset = 6, bool Real = false)
 {
-    /// <summary>Probabilità di gelata (Tmin &lt; 0 °C) assumendo dispersione normale σ = 3,5 °C.</summary>
-    public double FrostProbability => ClimateService.NormalCdf(-TMin / 3.5);
+    /// <summary>Probabilità di gelata (Tmin &lt; 0 °C) assumendo dispersione normale di ampiezza <see cref="FrostSigma"/>.</summary>
+    public double FrostProbability => ClimateService.NormalCdf(-TMin / FrostSigma);
 }
 
 public class ClimateService(OpenMeteoClient meteo, ILogger<ClimateService> log)
@@ -157,7 +162,7 @@ public class ClimateService(OpenMeteoClient meteo, ILogger<ClimateService> log)
     {
         var n = Daily(c, date.DayOfYear);
         double rain = date.DayNumber % RainEveryDays == 0 ? n.PrecipPerDay * RainEveryDays : 0;
-        return new DailyWeather(date, n.TMax, n.TMin, rain, n.Et0);
+        return new DailyWeather(date, n.TMax, n.TMin, rain, n.Et0, Estimated: true);
     }
 
     public static double NormalCdf(double z)

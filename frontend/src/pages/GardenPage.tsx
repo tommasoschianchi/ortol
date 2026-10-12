@@ -398,7 +398,7 @@ function Bed({ p, lotName, gardenId, open, onToggle, onAct, onReload, onShowAll 
             {p.alerts.map((a, i) => <span key={i} className={`chip ${a.level === 'danger' ? 'harvest' : a.level === 'warning' ? 'feed' : 'water'}`}>⚠ {a.title}</span>)}
           </div>
         </div>
-        <FitnessDial score={p.fitness} label={p.fitnessLabel} size={54} />
+        <FitnessDial score={p.fitness} label={p.fitnessLabel} size={54} note={p.fitnessNote} />
       </button>
 
       {open && (
@@ -507,7 +507,7 @@ function ClimateTab({ d }: { d: Dashboard }) {
             <div key={r.species.id} className="row" style={{ gap: 14 }}>
               <span style={{ width: 160 }}>{r.species.emoji} {r.species.name}</span>
               <div style={{ flex: 1, minWidth: 200 }}><SeasonStrip calendar={r.calendar} /></div>
-              <FitnessDial score={r.fitness} size={36} />
+              <FitnessDial score={r.fitness} size={36} note={r.fitnessNote} />
             </div>
           ))}
         </div>

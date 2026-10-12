@@ -164,7 +164,7 @@ export default function NewGarden({ first = false }: { first?: boolean }) {
 
               <div className="row" style={{ marginTop: 28 }}>
                 <p className="muted" style={{ margin: 0, maxWidth: '62ch' }}>
-                  Scegli cosa piantare {pot ? 'nei vasi' : 'nell\'orto'}. L'indicatore circolare misura quanto la specie è adatta al clima della città{pot ? ' e alla coltivazione in vaso' : ''}; la barra mostra i mesi migliori per piantarla.
+                  Scegli cosa piantare {pot ? 'nei vasi' : 'nell\'orto'}. L'indicatore circolare misura quanto la specie è adatta se la metti a dimora oggi, con le temperature di questi giorni, le previsioni e il clima atteso a {place.name} fino al raccolto{pot ? ', in vaso' : ''}; la barra mostra i mesi migliori per piantarla.
                 </p>
                 <span className="spacer" />
                 <SeasonLegend />
@@ -250,7 +250,7 @@ function RecGroup({ title, sub, items, picked, onToggle, disabled, pot }: {
                 <div style={{ maxWidth: 280 }}><SeasonStrip calendar={r.calendar} labels /></div>
               </div>
               <div className="rec-side row" style={{ gap: 14, justifyContent: 'flex-end' }}>
-                <FitnessDial score={r.fitness} label={r.fitnessLabel} size={56} />
+                <FitnessDial score={r.fitness} label={r.fitnessLabel} size={56} note={r.fitnessNote} />
                 {!disabled && (
                   <button className={`btn small ${sel ? '' : 'ghost'}`} onClick={() => onToggle(r.species.id)} aria-pressed={sel}>
                     {sel ? 'Selezionata' : 'Aggiungi'}

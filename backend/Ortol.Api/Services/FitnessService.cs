@@ -15,6 +15,13 @@ public record FitnessResult
     public List<MonthWindow> Calendar { get; init; } = new();
     public int? BestMonth { get; init; }
     public string Summary { get; init; } = "";
+    /// <summary>Data di messa a dimora su cui è calcolata l'idoneità.</summary>
+    public DateOnly Start { get; init; }
+    public DateOnly? ExpectedHarvest { get; init; }
+    public int CycleDays { get; init; }
+    /// <summary>Giorni del ciclo con meteo osservato o previsto.</summary>
+    public int RealDays { get; init; }
+    public WindowStatus Status { get; init; }
 }
 
 public record Recommendation
@@ -34,66 +41,84 @@ public record Recommendation
 }
 
 /// <summary>
-/// Indice di idoneità (0–100) di una specie al clima di una località, combinando:
-/// lunghezza della stagione utile (GDD disponibili / richiesti), quota di giorni in fascia termica ottimale,
-/// stress da caldo e rischio da freddo/gelo.
+/// Indice di idoneità (0–100) di una specie messa a dimora in una data precisa (di norma oggi, oppure il giorno in cui
+/// è stata piantata), valutato sull'intero ciclo fino al raccolto: i primi giorni usano il meteo osservato e le previsioni,
+/// il resto le medie climatiche della località. Combina: arrivo a maturazione, quota di giorni in fascia termica ottimale,
+/// stress da caldo, rischio da freddo/gelo e temperature alla messa a dimora.
 /// </summary>
 public class FitnessService
 {
     private static readonly string[] MonthNames = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
 
-    public FitnessResult Evaluate(PlantSpecies p, ClimateProfile c, Cultivation cultivation = Cultivation.Terra)
+    /// <summary>Calendario di semina sulle medie climatiche: esito di una semina a metà di ogni mese.</summary>
+    public (List<MonthWindow> Calendar, int? BestMonth) Calendar(PlantSpecies p, ClimateProfile c)
     {
         var outcomes = Enumerable.Range(1, 12)
             .Select(m => (Month: m, O: SeasonSimulator.Simulate(p, c, new DateOnly(2023, m, 15).DayOfYear)))
             .ToList();
-
         var calendar = outcomes.Select(x => new MonthWindow(x.Month, x.O.Status, x.O.DaysToHarvest)).ToList();
+        var best = outcomes.Where(x => x.O.PlantingTempOk)
+            .OrderByDescending(x => x.O.Status).ThenByDescending(x => x.O.OptimalShare).ThenByDescending(x => Math.Min(x.O.GddRatio, 1.5))
+            .Select(x => (int?)x.Month).FirstOrDefault();
+        return (calendar, best);
+    }
 
-        // Finestra migliore: prima per stato, poi per quota ottimale e margine di GDD
-        var best = outcomes.Where(x => x.O.PlantingTempOk).DefaultIfEmpty(outcomes.MaxBy(x => x.O.GddRatio))
-            .OrderByDescending(x => x.O.Status)
-            .ThenByDescending(x => x.O.OptimalShare)
-            .ThenByDescending(x => Math.Min(x.O.GddRatio, 1.5))
-            .First();
-        var o = best.O;
+    /// <summary>Idoneità per una messa a dimora in <paramref name="start"/>.</summary>
+    public FitnessResult Evaluate(PlantSpecies p, ClimateProfile c, Cultivation cultivation, DateOnly start,
+        IReadOnlyDictionary<DateOnly, DailyWeather>? weather, DateOnly today)
+    {
+        var o = SeasonSimulator.Simulate(p, c, start, weather, today);
+        return Score(p, c, cultivation, start, today, o, weather);
+    }
+
+    private FitnessResult Score(PlantSpecies p, ClimateProfile c, Cultivation cultivation, DateOnly start, DateOnly today,
+        SeasonOutcome o, IReadOnlyDictionary<DateOnly, DailyWeather>? weather)
+    {
         var t = p.Temperature;
+        var (calendar, bestMonth) = Calendar(p, c);
+        DateOnly end = start.AddDays(o.CycleDays - 1);
 
-        double season = Math.Min(1, o.GddRatio);
+        double season = o.Reached ? 1 : Math.Min(0.95, o.GddRatio);
         double optimal = o.OptimalShare;
-        double heat = 1 - Math.Min(1, o.HeatStressDays / 30.0);
-
-        // Rischio freddo
-        double coldScore; string coldDetail;
-        double coldestMin = c.Months.Min(m => m.TMin);
+        double heat = 1 - Math.Min(1, o.HeatStressDays * 3.0 / Math.Max(1, o.CycleDays));
+        double cold; string coldDetail;
         if (t.FrostTender)
         {
-            double need = p.DaysToMaturity + Math.Min(p.HarvestWindowDays, 30);
-            coldScore = Math.Min(1, c.FrostFreeDays / need);
-            coldDetail = $"{c.FrostFreeDays} giorni senza gelo all'anno, ne servono ~{need:0}";
+            cold = 1 - Math.Clamp((o.MaxFrostProbability - 0.02) / 0.30, 0, 1);
+            coldDetail = o.MaxFrostProbability < 0.02 ? "nessun rischio di gelata fino al raccolto"
+                : $"rischio di gelata fino al {Math.Round(o.MaxFrostProbability * 100):0}% nei giorni più freddi del ciclo";
         }
         else
         {
-            double extreme = coldestMin - 6;
-            double margin = extreme - t.MinSurvival;
-            coldScore = margin >= 0 ? 1 : Math.Max(0, 1 + margin / 8);
-            coldDetail = $"minima stimata nel mese più freddo {extreme:0} °C, tollera fino a {t.MinSurvival:0} °C";
+            double margin = o.LowestExtremeMin - t.MinSurvival;
+            cold = margin >= 2 ? 1 : Math.Clamp((margin + 6) / 8, 0, 1);
+            coldDetail = $"minima più bassa attesa nel ciclo ~{o.LowestExtremeMin:0} °C, tollera fino a {t.MinSurvival:0} °C";
         }
+        double dist = o.PlantingTemp < p.Planting.TempMinMean ? p.Planting.TempMinMean - o.PlantingTemp
+                    : o.PlantingTemp > p.Planting.TempMaxMean ? o.PlantingTemp - p.Planting.TempMaxMean : 0;
+        double planting = 1 - Math.Min(1, dist / 4);
 
+        string when = start == today ? "oggi" : start < today ? $"il {start:dd/MM/yyyy}" : $"il {start:dd/MM}";
         var comps = new List<FitnessComponent>
         {
-            new("season", "Durata della stagione", Math.Round(season, 2), 0.40,
-                $"{o.GddAvailable:0} gradi-giorno disponibili su {p.GddToMaturity:0} richiesti" + (o.Reached ? "" : $" (si ferma per {o.StopReason})")),
+            new("season", "Arrivo al raccolto", Math.Round(season, 2), 0.35,
+                o.Reached ? $"{p.GddToMaturity:0} gradi-giorno raggiunti in ~{o.DaysToHarvest} giorni (raccolto verso il {start.AddDays(o.DaysToHarvest ?? 0):dd/MM})"
+                          : $"si accumulano {o.GddAvailable:0} gradi-giorno su {p.GddToMaturity:0}: il ciclo si ferma dopo ~{o.CycleDays} giorni per {o.StopReason}"),
             new("optimal", "Temperature ottimali", Math.Round(optimal, 2), 0.30,
-                $"{optimal:P0} dei giorni di crescita tra {t.OptMin:0} e {t.OptMax:0} °C"),
+                $"{optimal:P0} dei giorni di crescita tra {t.OptMin:0} e {t.OptMax:0} °C (dal {start:dd/MM} al {end:dd/MM})"),
             new("heat", "Stress da caldo", Math.Round(heat, 2), 0.15,
-                o.HeatStressDays == 0 ? "nessun giorno oltre il limite" : $"~{o.HeatStressDays} giorni con massime oltre {t.GrowthMax:0} °C"),
-            new("cold", t.FrostTender ? "Rischio gelate" : "Resistenza al freddo", Math.Round(coldScore, 2), 0.15, coldDetail),
+                o.HeatStressDays == 0 ? "nessun giorno oltre il limite nel ciclo" : $"~{o.HeatStressDays} giorni con massime oltre {t.GrowthMax:0} °C"),
+            new("cold", t.FrostTender ? "Rischio gelate" : "Resistenza al freddo", Math.Round(cold, 2), 0.20, coldDetail),
+            new("planting", "Temperature alla messa a dimora", Math.Round(planting, 2), 0,
+                $"media {o.PlantingTemp:0.#} °C nei giorni della messa a dimora {when}, adatta tra {p.Planting.TempMinMean:0} e {p.Planting.TempMaxMean:0} °C" +
+                (planting < 1 ? $": punteggio moltiplicato ×{0.4 + 0.6 * planting:0.00}" : "") +
+                (o.PlantingTempOk ? "" : " · fuori periodo di semina: idoneità al massimo 50")),
         };
 
-        double score = comps.Sum(x => x.Score * x.Weight) * 100;
-        if (!calendar.Any(w => w.Status >= WindowStatus.Possibile))
-            score = Math.Min(score, calendar.Any(w => w.Status == WindowStatus.ConProtezione) ? 50 : 30);
+        double score = comps.Where(x => x.Weight > 0).Sum(x => x.Score * x.Weight) * 100;
+        score *= 0.4 + 0.6 * planting;
+        if (!o.PlantingTempOk) score = Math.Min(score, 50);
+        if (!o.Reached) score = Math.Min(score, o.Status == WindowStatus.ConProtezione ? 55 : 35);
         if (cultivation == Cultivation.Vaso)
         {
             var ct = p.Container;
@@ -103,26 +128,36 @@ public class FitnessService
         }
         int s = (int)Math.Round(Math.Clamp(score, 0, 100));
 
+        int normalDays = o.CycleDays - o.RealDays;
+        string normals = c.Estimated ? "le medie climatiche stimate" : $"le medie climatiche {c.Period}";
+        string basis = o.RealDays == 0
+            ? $"Calcolata con {normals} per tutti i {o.CycleDays} giorni del ciclo (meteo reale non disponibile)."
+            : $"Calcolata con {o.RealDays} giorni di meteo {(start < today ? "osservato o " : "")}previsto e {normals} per i restanti {normalDays}.";
+        string outcome = o.Reached
+            ? $"Messa a dimora {when}: raccolto previsto verso il {start.AddDays(o.DaysToHarvest ?? 0):dd/MM/yyyy}."
+            : $"Messa a dimora {when}: il ciclo si fermerebbe dopo ~{o.CycleDays} giorni per {o.StopReason}" +
+              (o.Status == WindowStatus.ConProtezione ? " (recuperabile con tunnel o tessuto non tessuto)." : ".");
         var good = calendar.Where(w => w.Status >= WindowStatus.Possibile).Select(w => MonthNames[w.Month - 1]).ToList();
-        string summary = good.Count == 0
-            ? "Il clima locale non offre una finestra di coltivazione affidabile in piena aria."
-            : $"Messa a dimora consigliata: {string.Join(", ", good)}.";
+        string cal = good.Count == 0 ? " Il clima locale non offre una finestra affidabile in piena aria." : $" Periodi di semina consigliati: {string.Join(", ", good)}.";
 
         return new FitnessResult
         {
             SpeciesId = p.Id, Score = s, Label = LabelFor(s), Components = comps, Calendar = calendar,
-            BestMonth = o.PlantingTempOk ? best.Month : null, Summary = summary,
+            BestMonth = bestMonth, Summary = $"{outcome} {basis}{cal}",
+            Start = start, ExpectedHarvest = o.DaysToHarvest is int dh ? start.AddDays(dh) : null,
+            CycleDays = o.CycleDays, RealDays = o.RealDays, Status = o.Status,
         };
     }
 
-    public List<Recommendation> Recommend(IEnumerable<PlantSpecies> species, ClimateProfile c, DateOnly today, Cultivation cultivation = Cultivation.Terra)
+    public List<Recommendation> Recommend(IEnumerable<PlantSpecies> species, ClimateProfile c, DateOnly today, Cultivation cultivation,
+        IReadOnlyDictionary<DateOnly, DailyWeather>? weather)
     {
         var list = new List<Recommendation>();
         foreach (var p in species)
         {
             if (cultivation == Cultivation.Vaso && p.Container.Suitability == "Sconsigliata") continue;
-            var fit = Evaluate(p, c, cultivation);
-            var now = SeasonSimulator.Simulate(p, c, today.DayOfYear);
+            var now = SeasonSimulator.Simulate(p, c, today, weather, today);
+            var fit = Score(p, c, cultivation, today, today, now, weather);
             if (now.Status >= WindowStatus.ConProtezione)
             {
                 // Fino a quando resta aperta la finestra? Simula la semina nei giorni successivi.
@@ -133,7 +168,7 @@ public class FitnessService
                     if (now.Status == WindowStatus.Ideale) idealUntil = today;
                     for (int k = 1; k <= 120; k++)
                     {
-                        var st = SeasonSimulator.Simulate(p, c, today.AddDays(k).DayOfYear).Status;
+                        var st = SeasonSimulator.Simulate(p, c, today.AddDays(k), weather, today).Status;
                         if (st < WindowStatus.Possibile) break;
                         openUntil = today.AddDays(k);
                         if (st == WindowStatus.Ideale && idealUntil == today.AddDays(k - 1)) idealUntil = today.AddDays(k);
@@ -170,7 +205,7 @@ public class FitnessService
             for (int ahead = 7; ahead <= 35; ahead += 7)
             {
                 var date = today.AddDays(ahead);
-                var o = SeasonSimulator.Simulate(p, c, date.DayOfYear);
+                var o = SeasonSimulator.Simulate(p, c, date, weather, today);
                 if (o.Status >= WindowStatus.Possibile)
                 {
                     list.Add(new Recommendation

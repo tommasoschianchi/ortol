@@ -32,13 +32,13 @@ export function scoreColor(score: number) {
   return 'var(--danger)'
 }
 
-/** Indicatore circolare di idoneità climatica (0–100). */
-export function FitnessDial({ score, label, size = 64, showLabel = true }: { score: number; label?: string; size?: number; showLabel?: boolean }) {
+/** Indicatore circolare di idoneità (0–100) per una messa a dimora in una data precisa (di norma oggi). */
+export function FitnessDial({ score, label, size = 64, showLabel = true, note }: { score: number; label?: string; size?: number; showLabel?: boolean; note?: string }) {
   const stroke = Math.max(5, size / 10)
   const r = (size - stroke) / 2
   const c = 2 * Math.PI * r
   return (
-    <div className="dial" style={{ width: size, height: size }} title={`Idoneità al clima: ${score}/100${label ? ` (${label})` : ''}`}>
+    <div className="dial" style={{ width: size, height: size }} title={`Idoneità: ${score}/100${label ? ` (${label})` : ''}${note ? `\n${note}` : ''}`}>
       <svg width={size} height={size} aria-hidden="true">
         <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--line)" strokeWidth={stroke} />
         <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={scoreColor(score)} strokeWidth={stroke}

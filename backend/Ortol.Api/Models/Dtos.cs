@@ -22,7 +22,7 @@ public record LocationRequest(double Latitude, double Longitude, double? Elevati
 
 public record RecommendationDto(SpeciesSummary Species, int Fitness, string FitnessLabel, string Timing, string Status,
     DateOnly? ExpectedHarvest, string Reason, List<MonthWindow> Calendar,
-    DateOnly? OpenUntil = null, DateOnly? IdealUntil = null, double? SlowFactor = null);
+    DateOnly? OpenUntil = null, DateOnly? IdealUntil = null, double? SlowFactor = null, string? FitnessNote = null);
 
 public record SuggestionsResponse(ClimateProfile Climate, List<RecommendationDto> Recommendations, List<PlantListItem> All, DateOnly Date);
 
@@ -52,7 +52,8 @@ public record DashboardResponse(
     GardenInfo Garden, ClimateProfile Climate, bool LiveWeather, List<WeatherDay> Forecast, List<WeatherDay> Past,
     List<PlantStatus> Plants, List<TaskItem> Tasks, List<RecommendationDto> Recommendations, double ExpectedYieldKg, double HarvestedKg);
 
-public record PlantListItem(SpeciesSummary Species, int? Fitness, string? FitnessLabel, List<MonthWindow>? Calendar = null);
+/// <param name="FitnessNote">Come è stata calcolata l'idoneità (messa a dimora oggi, raccolto previsto, giorni di meteo reale).</param>
+public record PlantListItem(SpeciesSummary Species, int? Fitness, string? FitnessLabel, List<MonthWindow>? Calendar = null, string? FitnessNote = null);
 
 public record PlantDetailResponse(PlantSpecies Species, FitnessResult? Fitness);
 

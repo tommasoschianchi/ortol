@@ -43,7 +43,8 @@ const periodGroup: Record<number, string> = {
 }
 
 /**
- * Classifica di tutte le specie dalla più alla meno adatta al clima della città (idoneità 0–100),
+ * Classifica di tutte le specie dalla più alla meno adatta a una messa a dimora oggi (idoneità 0–100: meteo attuale e previsto,
+ * poi medie climatiche della città fino al raccolto),
  * con il calendario di semina di ciascuna e l'indicazione se si possono mettere a dimora adesso.
  */
 export default function AddCropModal({ cultivation, city, widthM, lengthM, lots, species, recommendations, onPick, onClose }: Props) {
@@ -62,7 +63,7 @@ export default function AddCropModal({ cultivation, city, widthM, lengthM, lots,
       const fake: EditLot = { key: 'p', name: '', x: 0, y: 0, w: proposal?.w ?? 1, h: proposal?.h ?? 1, depthCm: proposal?.depthCm }
       return { item, rec, fitness, proposal, plants: plantsInLot(item.species, fake, cultivation), kg: estimatedYield(item.species, area(fake), fitness) }
     })
-      // prima il periodo (ideale → possibile → con protezione → tra poco → fuori stagione), poi l'idoneità al clima
+      // prima il periodo (ideale → possibile → con protezione → tra poco → fuori stagione), poi l'idoneità se piantata oggi
       .sort((a, b) => periodRank(b) - periodRank(a) || b.fitness - a.fitness || a.item.species.name.localeCompare(b.item.species.name))
   }, [species, recommendations, cultivation, widthM, lengthM, lots])
 
@@ -80,7 +81,7 @@ export default function AddCropModal({ cultivation, city, widthM, lengthM, lots,
           <div style={{ flex: 1 }}>
             <h2>Aggiungi coltura</h2>
             <p className="muted small" style={{ marginTop: 6 }}>
-              Tutte le piante{city ? ` per ${city}` : ''}{pot ? ' in vaso' : ''}: prima quelle nel periodo ideale per la semina, poi le altre; in ogni gruppo dalla più adatta al clima alla meno adatta.
+              Tutte le piante{city ? ` per ${city}` : ''}{pot ? ' in vaso' : ''}: prima quelle nel periodo ideale per la semina, poi le altre; in ogni gruppo dalla più adatta alla meno adatta. L'idoneità vale per una messa a dimora oggi: temperature di questi giorni, previsioni e clima atteso fino al raccolto.
               Il mese attuale ({month}) è riquadrato. Scegline una: creo {pot ? 'un vaso' : 'un lotto'} della misura giusta nel primo spazio libero.
             </p>
           </div>
@@ -129,8 +130,8 @@ export default function AddCropModal({ cultivation, city, widthM, lengthM, lots,
                       🌡️ min <b>{fmtNum(t.growthMin)}°</b> · ottimale <b>{fmtNum(t.optMin)}–{fmtNum(t.optMax)}°</b> · max <b>{fmtNum(t.growthMax)}°</b>
                       <span className="muted"> · {s.frostTender ? 'non sopporta il gelo' : `resiste fino a ${fmtNum(t.minSurvival)}°`}</span>
                     </span>
-                    <span className="fact" title={`Resa media della specie ${fmtNum(s.yieldKgM2)} kg/m², corretta per l'idoneità al clima (${r.fitness}/100)`}>
-                      ⚖️ resa <b>~{fmtNum(estimatedYield(s, 1, r.fitness))} kg/m²</b><span className="muted"> nel tuo clima (media {fmtNum(s.yieldKgM2)})</span>
+                    <span className="fact" title={`Resa media della specie ${fmtNum(s.yieldKgM2)} kg/m², corretta per l'idoneità se piantata oggi (${r.fitness}/100)`}>
+                      ⚖️ resa <b>~{fmtNum(estimatedYield(s, 1, r.fitness))} kg/m²</b><span className="muted"> se piantata oggi (media {fmtNum(s.yieldKgM2)})</span>
                     </span>
                     <span className="fact">⏱️ primo raccolto {harvestIn(r)}{overwinters(r.rec, today) ? <span className="muted"> · semina autunnale, raccolto in primavera</span>
                       : r.rec?.slowFactor && r.rec.slowFactor > 1.5 ? <span className="muted"> · ciclo più lungo del solito per il freddo (tipico ~{r.item.species.daysToMaturity} giorni)</span> : null}</span>
@@ -142,7 +143,7 @@ export default function AddCropModal({ cultivation, city, widthM, lengthM, lots,
                       : <span style={{ color: 'var(--danger)' }}>Nessuno spazio libero sufficiente</span>}
                   </div>
                 </div>
-                <FitnessDial score={r.fitness} label={r.item.fitnessLabel} size={48} />
+                <FitnessDial score={r.fitness} label={r.item.fitnessLabel} size={48} note={r.item.fitnessNote ?? r.rec?.fitnessNote} />
                 <button type="button" className={`btn small ${now ? 'sprout' : 'ghost'}`} disabled={!r.proposal} onClick={() => r.proposal && onPick(s.id, r.proposal)}>Aggiungi</button>
               </li>
               </Fragment>

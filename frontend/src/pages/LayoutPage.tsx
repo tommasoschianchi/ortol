@@ -22,7 +22,7 @@ export default function LayoutPage() {
         const crop = dash.plants.find(p => p.lotId === l.id)
         return {
           key: l.id, id: l.id, name: l.name, x: l.x, y: l.y, w: l.w, h: l.h, depthCm: l.depthCm,
-          speciesId: crop?.speciesId, cropSpeciesId: crop?.speciesId, plantedOn: crop?.plantedOn,
+          speciesId: crop?.speciesId, cropSpeciesId: crop?.speciesId, cropFitness: crop?.fitness, plantedOn: crop?.plantedOn,
         }
       })
       setInitial(lots)

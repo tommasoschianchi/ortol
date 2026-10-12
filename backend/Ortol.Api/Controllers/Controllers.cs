@@ -23,17 +23,22 @@ public class GeoController(OpenMeteoClient meteo) : ControllerBase
 [ApiController]
 [Authorize]
 [Route("api/plants")]
-public class PlantsController(PlantCatalog catalog, GardenStore store, ClimateService climate, FitnessService fitness) : ControllerBase
+public class PlantsController(PlantCatalog catalog, GardenStore store, ClimateService climate, FitnessService fitness, WeatherService weather) : ControllerBase
 {
+    private static DateOnly Today => DateOnly.FromDateTime(DateTime.Now);
+
+    /// <summary>Catalogo; con un orto, idoneità di ogni specie se messa a dimora oggi.</summary>
     [HttpGet]
     public async Task<IActionResult> List([FromQuery] Guid? gardenId, CancellationToken ct)
     {
         var g = gardenId is Guid id ? store.GetOwned(id, User.UserId()) : null;
-        var c = g is null ? null : await climate.EnsureProfileAsync(g, ct);
+        if (g is null) return Ok(catalog.All.Select(p => new PlantListItem(SpeciesSummary.From(p), null, null)));
+        var c = await climate.EnsureProfileAsync(g, ct);
+        var w = await weather.GetMapAsync(g, Today.AddDays(-3), ct);
         return Ok(catalog.All.Select(p =>
         {
-            var f = c is null ? null : fitness.Evaluate(p, c, g!.Cultivation);
-            return new PlantListItem(SpeciesSummary.From(p), f?.Score, f?.Label, f?.Calendar);
+            var f = fitness.Evaluate(p, c, g.Cultivation, Today, w, Today);
+            return new PlantListItem(SpeciesSummary.From(p), f.Score, f.Label, f.Calendar, f.Summary);
         }));
     }
 
@@ -44,7 +49,11 @@ public class PlantsController(PlantCatalog catalog, GardenStore store, ClimateSe
         if (p is null) return NotFound();
         var g = gardenId is Guid gid ? store.GetOwned(gid, User.UserId()) : null;
         FitnessResult? f = null;
-        if (g is not null) f = fitness.Evaluate(p, await climate.EnsureProfileAsync(g, ct), g.Cultivation);
+        if (g is not null)
+        {
+            var c = await climate.EnsureProfileAsync(g, ct);
+            f = fitness.Evaluate(p, c, g.Cultivation, Today, await weather.GetMapAsync(g, Today.AddDays(-3), ct), Today);
+        }
         return Ok(new PlantDetailResponse(p, f));
     }
 }
@@ -73,12 +82,14 @@ public class GardensController(
     {
         var profile = await ProfileFor(req.Latitude, req.Longitude, req.Elevation, ct);
         var date = req.Date ?? Today;
+        var place = new Garden { Latitude = req.Latitude, Longitude = req.Longitude, Elevation = req.Elevation, Climate = profile };
+        var w = await weather.GetMapAsync(place, Today.AddDays(-3), ct);
         var all = catalog.All.Select(p =>
         {
-            var f = fitness.Evaluate(p, profile, req.Cultivation);
-            return new PlantListItem(SpeciesSummary.From(p), f.Score, f.Label, f.Calendar);
+            var f = fitness.Evaluate(p, profile, req.Cultivation, date, w, Today);
+            return new PlantListItem(SpeciesSummary.From(p), f.Score, f.Label, f.Calendar, f.Summary);
         }).ToList();
-        return new SuggestionsResponse(profile, ToDtos(fitness.Recommend(catalog.All, profile, date, req.Cultivation)), all, date);
+        return new SuggestionsResponse(profile, ToDtos(fitness.Recommend(catalog.All, profile, date, req.Cultivation, w)), all, date);
     }
 
     [HttpPost]
@@ -116,20 +127,23 @@ public class GardensController(
         if (from > Today.AddDays(-30)) from = Today.AddDays(-30);
         if (from < Today.AddDays(-365)) from = Today.AddDays(-365);
         var ws = await weather.GetSeriesAsync(g, from, ct);
+        var wmap = WeatherService.RealDays(ws);
 
-        var fitCache = new Dictionary<string, FitnessResult>();
+        // Idoneità di ogni coltura sul suo ciclo: dalla messa a dimora, con il meteo osservato fino a oggi, le previsioni e poi le medie.
+        var fitCache = new Dictionary<(string, DateOnly), FitnessResult>();
         var statuses = active
             .Select(gp => (gp, sp: catalog.Get(gp.SpeciesId)))
             .Where(x => x.sp is not null)
             .Select(x =>
             {
-                if (!fitCache.TryGetValue(x.sp!.Id, out var f)) fitCache[x.sp.Id] = f = fitness.Evaluate(x.sp, c, g.Cultivation);
+                var k = (x.sp!.Id, x.gp.PlantedOn);
+                if (!fitCache.TryGetValue(k, out var f)) fitCache[k] = f = fitness.Evaluate(x.sp, c, g.Cultivation, x.gp.PlantedOn, wmap, Today);
                 return care.Evaluate(g, x.gp, x.sp, ws, f);
             })
             .OrderBy(s => s.PlantedOn)
             .ToList();
 
-        var recs = ToDtos(fitness.Recommend(catalog.All, c, Today, g.Cultivation));
+        var recs = ToDtos(fitness.Recommend(catalog.All, c, Today, g.Cultivation, wmap));
         double harvested = g.Plants.Sum(p => p.Logs.Where(l => l.Type == CareType.Harvest).Sum(l => l.Amount ?? 0));
         return Ok(new DashboardResponse(
             GardenInfo.From(g), c, ws.Live,
@@ -317,7 +331,7 @@ public class GardensController(
 
     private static List<RecommendationDto> ToDtos(List<Recommendation> recs) => recs.Select(r => new RecommendationDto(
         SpeciesSummary.From(r.Species), r.Fitness.Score, r.Fitness.Label, r.Timing, r.Status.ToString(),
-        r.ExpectedHarvest, r.Reason, r.Fitness.Calendar, r.OpenUntil, r.IdealUntil, r.SlowFactor)).ToList();
+        r.ExpectedHarvest, r.Reason, r.Fitness.Calendar, r.OpenUntil, r.IdealUntil, r.SlowFactor, r.Fitness.Summary)).ToList();
 
     private static WeatherDay ToDay(DailyWeather d) => new(d.Date, Math.Round(d.TMax, 1), Math.Round(d.TMin, 1),
         Math.Round(d.Precipitation, 1), Math.Round(d.Et0, 1), d.WeatherCode, d.PrecipProbability);

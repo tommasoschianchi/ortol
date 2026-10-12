@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace Ortol.Api.Services;
 
-public record DailyWeather(DateOnly Date, double TMax, double TMin, double Precipitation, double Et0, int? WeatherCode = null, int? PrecipProbability = null)
+public record DailyWeather(DateOnly Date, double TMax, double TMin, double Precipitation, double Et0, int? WeatherCode = null, int? PrecipProbability = null, bool Estimated = false)
 {
     public double TMean => (TMax + TMin) / 2.0;
 }

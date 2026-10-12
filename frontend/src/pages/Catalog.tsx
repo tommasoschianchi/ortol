@@ -24,7 +24,7 @@ export default function Catalog() {
       <div style={{ padding: '40px 0 4px' }}>
         <h1>Le piante dell'orto</h1>
         <p className="muted" style={{ maxWidth: '62ch', marginTop: 10 }}>
-          {id ? 'Ordinate per idoneità al clima del tuo orto. ' : 'Apri un orto per vedere l\'idoneità di ogni specie al tuo clima. '}
+          {id ? 'Ordinate per idoneità se messe a dimora oggi nel tuo orto. ' : 'Apri un orto per vedere l\'idoneità di ogni specie se piantata oggi. '}
           Ogni scheda riporta soglie termiche, coefficienti colturali FAO-56, fabbisogni nutritivi e consociazioni.
         </p>
       </div>
@@ -46,7 +46,7 @@ export default function Catalog() {
               <div><em className="sci small">{i.species.scientificName}</em></div>
               <div className="small muted">{i.species.family} · {i.species.yieldKgM2.toLocaleString('it-IT')} kg/m² · in vaso: {i.species.container.suitability.toLowerCase()}</div>
             </div>
-            {i.fitness != null && <FitnessDial score={i.fitness} label={i.fitnessLabel} size={44} />}
+            {i.fitness != null && <FitnessDial score={i.fitness} label={i.fitnessLabel} size={44} note={i.fitnessNote} />}
           </Link>
         ))}
         {items && shown.length === 0 && <p className="muted">Nessuna pianta corrisponde alla ricerca.</p>}

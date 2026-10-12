@@ -40,7 +40,7 @@ export default function PlantDetail() {
       <div className="detail-grid">
         {f && (
           <div className="panel full">
-            <div className="row"><h3>Idoneità al clima del tuo orto</h3><span className="spacer" /><SeasonLegend /></div>
+            <div className="row"><h3>Idoneità se piantata oggi nel tuo orto</h3><span className="spacer" /><SeasonLegend /></div>
             <p className="small muted" style={{ marginTop: 4 }}>{f.summary}</p>
             <div style={{ margin: '14px 0 22px' }}><SeasonStrip calendar={f.calendar} big labels /></div>
             {f.components.map(c => (
@@ -110,7 +110,7 @@ export default function PlantDetail() {
             <dt>Contenitore</dt><dd>almeno {s.container.minLiters} L di terriccio e {s.container.minDepthCm} cm di profondità per pianta</dd>
           </dl>
           <p className="small" style={{ marginTop: 8 }}>{s.container.notes}</p>
-          <p className="small muted">La stima di raccolto nella mappa moltiplica la superficie per questa resa e per un fattore climatico tra 0,4 e 1 legato all'idoneità.</p>
+          <p className="small muted">La stima di raccolto nella mappa moltiplica la superficie per questa resa e per un fattore tra 0,4 e 1 legato all'idoneità (da oggi per le nuove colture, dalla messa a dimora per quelle già piantate).</p>
         </div>
 
         <div className="panel">

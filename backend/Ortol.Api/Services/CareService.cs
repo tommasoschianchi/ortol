@@ -40,6 +40,8 @@ public record PlantStatus
     public List<Alert> Alerts { get; init; } = new();
     public int Fitness { get; init; }
     public string FitnessLabel { get; init; } = "";
+    /// <summary>Come è stata calcolata l'idoneità sul ciclo di questa coltura.</summary>
+    public string FitnessNote { get; init; } = "";
     public DateOnly? LastWatered { get; init; }
     public DateOnly? LastFertilized { get; init; }
     public double HarvestedKg { get; init; }
@@ -274,7 +276,7 @@ public class CareService
             Id = gp.Id, SpeciesId = p.Id, Name = p.Name, Emoji = p.Emoji, ScientificName = p.ScientificName,
             Label = gp.Label, Quantity = gp.Quantity, PlantedOn = gp.PlantedOn, Notes = gp.Notes,
             Growth = growth, Water = water, Fertilize = fert, Harvest = harvest, Alerts = alerts,
-            Fitness = fit.Score, FitnessLabel = fit.Label, LastWatered = lastWater, LastFertilized = lastFert,
+            Fitness = fit.Score, FitnessLabel = fit.Label, FitnessNote = fit.Summary, LastWatered = lastWater, LastFertilized = lastFert,
             HarvestedKg = gp.Logs.Where(l => l.Type == CareType.Harvest).Sum(l => l.Amount ?? 0),
             // ultime operazioni: per data, poi per momento di registrazione (le più recenti prima)
             RecentLogs = gp.Logs.Select((l, i) => (l, i)).OrderByDescending(x => x.l.Date).ThenByDescending(x => x.l.CreatedAt ?? DateTime.MinValue)

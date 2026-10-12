@@ -54,4 +54,11 @@ public class WeatherService(OpenMeteoClient meteo, IMemoryCache cache, ILogger<W
             days.Add(map.TryGetValue(d, out var w) ? w : ClimateService.AsWeather(g.Climate!, d));
         return new WeatherSeries(days, today, live);
     }
+
+    /// <summary>Solo i giorni con meteo osservato o previsto (esclusi quelli ricostruiti dalle medie).</summary>
+    public static Dictionary<DateOnly, DailyWeather> RealDays(WeatherSeries ws) =>
+        ws.Days.Where(d => !d.Estimated).ToDictionary(d => d.Date);
+
+    public async Task<Dictionary<DateOnly, DailyWeather>> GetMapAsync(Garden g, DateOnly from, CancellationToken ct = default) =>
+        RealDays(await GetSeriesAsync(g, from, ct));
 }

@@ -39,7 +39,8 @@ export function useLotInfo(v: LayoutValue, cultivation: Cultivation, species: Pl
       if (sp) {
         item.species = sp.species
         item.plants = plantsInLot(sp.species, l, cultivation)
-        item.fitness = sp.fitness ?? 50
+        // coltura già in terra: idoneità del suo ciclo; nuova coltura: idoneità se piantata oggi
+        item.fitness = l.cropSpeciesId && l.cropSpeciesId === l.speciesId && l.cropFitness != null ? l.cropFitness : sp.fitness ?? 50
         item.kg = estimatedYield(sp.species, a, item.fitness)
         kg += item.kg
       }
@@ -213,7 +214,7 @@ function Summary({ v, pot, total, used, kg, info, onPick }: {
       {total > 0 && used / total > 0.85 && !pot && (
         <p className="small muted">Lascia qualche camminamento tra i lotti (30–50 cm) per raggiungere le piante senza calpestare il terreno.</p>
       )}
-      <p className="small muted">Resa stimata totale: <b>~{fmtNum(kg)} kg</b> per ciclo, calcolata su superficie, resa media della specie e idoneità al clima.</p>
+      <p className="small muted">Resa stimata totale: <b>~{fmtNum(kg)} kg</b> per ciclo, calcolata su superficie, resa media della specie e idoneità (dalla messa a dimora per le colture già piantate, da oggi per le nuove).</p>
     </div>
   )
 }
@@ -288,7 +289,7 @@ function LotPanel({ lot, pot, info, item, recList, otherList, recommendedNow, on
         <div className="row small" style={{ gap: 10 }}>
           <FitnessDial score={info.fitness ?? 0} size={40} />
           <span className="muted">
-            Idoneità al clima{pot ? ' in vaso' : ''}. Resa media {fmtNum(sp.yieldKgM2)} kg/m², sesto {sp.spacingRowCm}×{sp.spacingPlantCm} cm
+            Idoneità{pot ? ' in vaso' : ''} {lot.cropSpeciesId && lot.cropSpeciesId === lot.speciesId ? 'sul ciclo in corso' : 'se piantata oggi'}. Resa media {fmtNum(sp.yieldKgM2)} kg/m², sesto {sp.spacingRowCm}×{sp.spacingPlantCm} cm
             {pot ? `, ${sp.container.minLiters} L per pianta` : ''}.
           </span>
         </div>

@@ -1,6 +1,6 @@
 # Ortol — monitoraggio scientifico dell'orto
 
-Web app per gestire il proprio orto: suggerisce cosa piantare in base a **stagione e città**, calcola **quando annaffiare, concimare e raccogliere** e mostra per ogni pianta un **indice di idoneità al clima** (0–100) della località.
+Web app per gestire il proprio orto: suggerisce cosa piantare in base a **stagione e città**, calcola **quando annaffiare, concimare e raccogliere** e mostra per ogni pianta un **indice di idoneità** (0–100) se messa a dimora oggi nella località.
 
 - **Frontend**: React 18 + TypeScript + Vite (`frontend/`)
 - **Backend**: ASP.NET Core 10 Web API (`backend/Ortol.Api/`), nessun pacchetto NuGet esterno
@@ -44,7 +44,7 @@ Il backend serve anche l'app React. Per cambiare la cartella dei dati: `Storage_
 |---|---|
 | **Clima della città** | 10 anni di dati giornalieri (2015–2024) → normali mensili di Tmax/Tmin, pioggia, ET0, giorni di gelo, date mediane di ultima/prima gelata. Se l'archivio non è raggiungibile si usa una stima da latitudine e quota, ricalcolata appena possibile. |
 | **Cosa piantare ora** | Per ogni specie si simula giorno per giorno la stagione a partire da oggi sulle normali climatiche: temperatura di messa a dimora, accumulo di **gradi-giorno** (soglia inferiore = zero di vegetazione, superiore = ottimo massimo), stop per gelo/freddo letale, salita a seme col caldo, vernalizzazione. Esito: *Ideale*, *Possibile*, *Con protezione*, *Non adatto*. |
-| **Indice di idoneità** | Media pesata: durata della stagione utile (GDD disponibili/richiesti, 40%), quota di giorni in fascia ottimale (30%), stress da caldo (15%), rischio gelo o resistenza al freddo (15%), sulla migliore finestra di impianto dell'anno. |
+| **Indice di idoneità** | Calcolato sul ciclo che parte oggi (o, per le colture già piantate, dalla loro messa a dimora) fino al raccolto: meteo osservato e previsioni per i giorni disponibili, medie climatiche per il resto. Media pesata: arrivo al raccolto (GDD accumulati/richiesti, 35%), quota di giorni in fascia ottimale (30%), stress da caldo (15%), rischio gelo o resistenza al freddo (20%), moltiplicata per l'adeguatezza delle temperature alla messa a dimora (×0,4–1). Massimo 50 fuori dal periodo di semina, 55 se serve una protezione, 35 se il ciclo non arriva al raccolto. Il calendario di semina resta calcolato sulle medie climatiche. |
 | **Irrigazione** | Bilancio idrico del suolo FAO-56 (cap. 8): ETc = Kc·ET0 con Kc per fase (FAO-56 Tab. 12), approfondimento radicale progressivo, acqua disponibile TAW dal tipo di terreno, soglia RAW = p·TAW con p corretto per l'ETc. Usa pioggia ed ET0 reali degli ultimi giorni e la previsione; le irrigazioni registrate riportano il suolo alla capacità di campo (o dei litri indicati). |
 | **Fase e raccolta** | Gradi-giorno reali dalla messa a dimora (archivio + previsione), proiettati con le normali climatiche per stimare la data di raccolta. |
 | **Concimazione** | Calendario per specie (avvio, intervallo, sospensione pre-raccolta), consigli diversi in fase vegetativa e produttiva, rinvio se la pianta è ferma per il freddo; nessuna concimazione di routine per le leguminose. |
