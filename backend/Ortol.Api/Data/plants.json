@@ -1,0 +1,2503 @@
+[
+  {
+    "id": "pomodoro",
+    "name": "Pomodoro",
+    "scientificName": "Solanum lycopersicum",
+    "family": "Solanaceae",
+    "category": "Frutto",
+    "emoji": "🍅",
+    "description": "Pianta erbacea annuale originaria delle Ande, la coltura orticola più diffusa al mondo. Termofila e sensibile al gelo; la fruttificazione si blocca con notti sotto i 10 °C o giornate sopra i 35 °C (aborto fiorale e mancata allegagione).",
+    "lifecycle": "Annuale",
+    "planting": {
+      "method": "Trapianto",
+      "tempMinMean": 15,
+      "tempMaxMean": 27,
+      "depthCm": 10,
+      "spacingRowCm": 100,
+      "spacingPlantCm": 50
+    },
+    "temperature": {
+      "germMin": 10,
+      "germOpt": 25,
+      "baseGdd": 10,
+      "growthMin": 13,
+      "optMin": 20,
+      "optMax": 27,
+      "growthMax": 35,
+      "frostTender": true,
+      "minSurvival": 1
+    },
+    "gddToMaturity": 1150,
+    "daysToMaturity": 75,
+    "harvestWindowDays": 70,
+    "continuousHarvest": true,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.6,
+      "kcMid": 1.15,
+      "kcEnd": 0.8,
+      "stages": [
+        30,
+        40,
+        40,
+        25
+      ],
+      "rootDepthMin": 0.7,
+      "rootDepthMax": 1.5,
+      "depletionFraction": 0.4,
+      "notes": "Irrigazione regolare alla base: sbalzi idrici durante l'ingrossamento causano marciume apicale (carenza di calcio indotta) e spaccature delle bacche. Evitare di bagnare le foglie (peronospora)."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 6.8,
+      "sun": "Pieno sole (≥ 8 h)",
+      "notes": "Terreno profondo, ricco di sostanza organica e ben drenato."
+    },
+    "nutrition": {
+      "demand": "Alta",
+      "startAfterDays": 20,
+      "intervalDays": 15,
+      "stopBeforeEndDays": 0,
+      "vegetative": "Azoto moderato (es. NPK 10-5-10) per sviluppo fogliare senza eccessi che ritardano la fioritura.",
+      "reproductive": "Dalla prima allegagione privilegiare potassio e calcio (es. NPK 5-5-15 + calcio) per qualità e sapore dei frutti.",
+      "organic": "Letame maturo 3–4 kg/m² prima del trapianto; macerato di consolida o ortica durante la stagione."
+    },
+    "harvest": {
+      "signs": "Bacca completamente colorata, consistente ma cedevole alla pressione; il pedicello si stacca facilmente.",
+      "tips": "Raccogliere invaiati se sono previste piogge forti o freddo: maturano bene in casa."
+    },
+    "companions": [
+      "basilico",
+      "carota",
+      "prezzemolo",
+      "lattuga"
+    ],
+    "antagonists": [
+      "patata",
+      "finocchio",
+      "cavolo"
+    ],
+    "pests": [
+      "Peronospora (Phytophthora infestans)",
+      "Tuta absoluta",
+      "Afidi",
+      "Marciume apicale (fisiopatia)"
+    ],
+    "tips": [
+      "Tutorare subito e sfemminellare le varietà indeterminate.",
+      "Rotazione: non ripiantare solanacee nello stesso punto per 3–4 anni.",
+      "Pacciamatura per mantenere costante l'umidità del suolo."
+    ],
+    "yieldKgM2": 6,
+    "container": {
+      "suitability": "Buona",
+      "minLiters": 20,
+      "minDepthCm": 30,
+      "notes": "Varietà determinate o cherry; tutore anche in vaso."
+    }
+  },
+  {
+    "id": "zucchina",
+    "name": "Zucchina",
+    "scientificName": "Cucurbita pepo",
+    "family": "Cucurbitaceae",
+    "category": "Frutto",
+    "emoji": "🥒",
+    "description": "Cucurbitacea a crescita rapidissima e produzione prolungata. Monoica: fiori maschili e femminili separati, impollinazione entomofila (api). Sensibile al freddo e all'oidio.",
+    "lifecycle": "Annuale",
+    "planting": {
+      "method": "Semina diretta o trapianto",
+      "tempMinMean": 16,
+      "tempMaxMean": 28,
+      "depthCm": 3,
+      "spacingRowCm": 120,
+      "spacingPlantCm": 80
+    },
+    "temperature": {
+      "germMin": 15,
+      "germOpt": 28,
+      "baseGdd": 10,
+      "growthMin": 13,
+      "optMin": 20,
+      "optMax": 28,
+      "growthMax": 35,
+      "frostTender": true,
+      "minSurvival": 2
+    },
+    "gddToMaturity": 550,
+    "daysToMaturity": 50,
+    "harvestWindowDays": 60,
+    "continuousHarvest": true,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.5,
+      "kcMid": 0.95,
+      "kcEnd": 0.75,
+      "stages": [
+        25,
+        35,
+        25,
+        15
+      ],
+      "rootDepthMin": 0.6,
+      "rootDepthMax": 1.0,
+      "depletionFraction": 0.5,
+      "notes": "Elevata richiesta idrica in piena produzione. Irrigare al piede: l'umidità fogliare favorisce l'oidio."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 7.5,
+      "sun": "Pieno sole",
+      "notes": "Molto esigente in sostanza organica."
+    },
+    "nutrition": {
+      "demand": "Alta",
+      "startAfterDays": 20,
+      "intervalDays": 15,
+      "stopBeforeEndDays": 0,
+      "vegetative": "Concime equilibrato (NPK 10-10-10) dopo l'attecchimento.",
+      "reproductive": "In produzione aumentare il potassio per sostenere la fruttificazione continua.",
+      "organic": "Buca arricchita con compost o letame (5 kg/m²); stallatico pellettato a metà ciclo."
+    },
+    "harvest": {
+      "signs": "Frutti lunghi 15–20 cm, buccia lucida; il fiore apicale può essere ancora attaccato.",
+      "tips": "Raccogliere ogni 2–3 giorni: frutti lasciati sulla pianta ne riducono la produttività."
+    },
+    "companions": [
+      "fagiolo",
+      "cipolla",
+      "lattuga"
+    ],
+    "antagonists": [
+      "patata",
+      "cetriolo"
+    ],
+    "pests": [
+      "Oidio (Podosphaera xanthii)",
+      "Afidi",
+      "Virus del mosaico (CMV, ZYMV)"
+    ],
+    "tips": [
+      "Se i frutti marciscono in punta è spesso scarsa impollinazione: favorire gli impollinatori.",
+      "Una pianta produce 3–5 kg: 2–3 piante bastano per una famiglia."
+    ],
+    "yieldKgM2": 5,
+    "container": {
+      "suitability": "Discreta",
+      "minLiters": 40,
+      "minDepthCm": 40,
+      "notes": "Pianta molto ingombrante: un vaso grande per pianta."
+    }
+  },
+  {
+    "id": "peperone",
+    "name": "Peperone",
+    "scientificName": "Capsicum annuum",
+    "family": "Solanaceae",
+    "category": "Frutto",
+    "emoji": "🫑",
+    "description": "Solanacea molto termofila, con ciclo lungo e crescita lenta nelle prime fasi. Le temperature notturne sotto 15 °C rallentano fortemente lo sviluppo; sopra 32 °C cadono i fiori.",
+    "lifecycle": "Annuale",
+    "planting": {
+      "method": "Trapianto",
+      "tempMinMean": 17,
+      "tempMaxMean": 27,
+      "depthCm": 8,
+      "spacingRowCm": 70,
+      "spacingPlantCm": 40
+    },
+    "temperature": {
+      "germMin": 15,
+      "germOpt": 28,
+      "baseGdd": 10,
+      "growthMin": 15,
+      "optMin": 21,
+      "optMax": 29,
+      "growthMax": 33,
+      "frostTender": true,
+      "minSurvival": 3
+    },
+    "gddToMaturity": 1100,
+    "daysToMaturity": 75,
+    "harvestWindowDays": 60,
+    "continuousHarvest": true,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.6,
+      "kcMid": 1.05,
+      "kcEnd": 0.9,
+      "stages": [
+        30,
+        35,
+        40,
+        20
+      ],
+      "rootDepthMin": 0.5,
+      "rootDepthMax": 1.0,
+      "depletionFraction": 0.3,
+      "notes": "Apparato radicale superficiale e bassa tolleranza allo stress idrico (p = 0,30): annaffiature frequenti e leggere."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 7.0,
+      "sun": "Pieno sole",
+      "notes": "Terreno caldo, sciolto, ben drenato."
+    },
+    "nutrition": {
+      "demand": "Alta",
+      "startAfterDays": 25,
+      "intervalDays": 15,
+      "stopBeforeEndDays": 0,
+      "vegetative": "Azoto moderato fino alla fioritura.",
+      "reproductive": "Potassio e calcio durante la fruttificazione (prevenzione marciume apicale).",
+      "organic": "Compost maturo 3 kg/m² prima del trapianto."
+    },
+    "harvest": {
+      "signs": "Frutto della dimensione tipica, lucido e sodo; per i colorati attendere il viraggio completo.",
+      "tips": "Tagliare con forbici: i rami sono fragili."
+    },
+    "companions": [
+      "basilico",
+      "carota",
+      "cipolla"
+    ],
+    "antagonists": [
+      "finocchio",
+      "fagiolo"
+    ],
+    "pests": [
+      "Afidi",
+      "Ragnetto rosso",
+      "Piralide del mais",
+      "Marciume apicale"
+    ],
+    "tips": [
+      "Tutorare le varietà a frutto grande.",
+      "La raccolta a verde stimola nuova fruttificazione."
+    ],
+    "yieldKgM2": 3,
+    "container": {
+      "suitability": "Ottima",
+      "minLiters": 10,
+      "minDepthCm": 25,
+      "notes": "Si adatta bene al vaso, anche in balcone soleggiato."
+    }
+  },
+  {
+    "id": "melanzana",
+    "name": "Melanzana",
+    "scientificName": "Solanum melongena",
+    "family": "Solanaceae",
+    "category": "Frutto",
+    "emoji": "🍆",
+    "description": "La più esigente in calore tra le solanacee orticole, di origine indiana. Sotto i 12 °C la crescita si arresta; richiede estati lunghe e calde.",
+    "lifecycle": "Annuale",
+    "planting": {
+      "method": "Trapianto",
+      "tempMinMean": 17,
+      "tempMaxMean": 28,
+      "depthCm": 8,
+      "spacingRowCm": 90,
+      "spacingPlantCm": 50
+    },
+    "temperature": {
+      "germMin": 15,
+      "germOpt": 28,
+      "baseGdd": 10,
+      "growthMin": 15,
+      "optMin": 22,
+      "optMax": 30,
+      "growthMax": 35,
+      "frostTender": true,
+      "minSurvival": 3
+    },
+    "gddToMaturity": 1150,
+    "daysToMaturity": 80,
+    "harvestWindowDays": 60,
+    "continuousHarvest": true,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.6,
+      "kcMid": 1.05,
+      "kcEnd": 0.9,
+      "stages": [
+        30,
+        40,
+        40,
+        20
+      ],
+      "rootDepthMin": 0.7,
+      "rootDepthMax": 1.2,
+      "depletionFraction": 0.45,
+      "notes": "Richiede apporti costanti; lo stress idrico rende i frutti amari e legnosi."
+    },
+    "soil": {
+      "phMin": 5.5,
+      "phMax": 6.8,
+      "sun": "Pieno sole",
+      "notes": "Terreno fertile e profondo."
+    },
+    "nutrition": {
+      "demand": "Alta",
+      "startAfterDays": 25,
+      "intervalDays": 15,
+      "stopBeforeEndDays": 0,
+      "vegetative": "Concime equilibrato con azoto per sviluppo della chioma.",
+      "reproductive": "Potassio in fruttificazione.",
+      "organic": "Letame maturo 4 kg/m² in pre-impianto."
+    },
+    "harvest": {
+      "signs": "Buccia lucida e tesa; premendo con il dito la polpa torna elastica. Frutto opaco = sovramaturo, semi duri.",
+      "tips": "Raccogliere giovani per frutti più teneri e maggiore produzione."
+    },
+    "companions": [
+      "fagiolo",
+      "basilico",
+      "peperone"
+    ],
+    "antagonists": [
+      "patata",
+      "finocchio"
+    ],
+    "pests": [
+      "Dorifora",
+      "Ragnetto rosso",
+      "Afidi",
+      "Verticillosi"
+    ],
+    "tips": [
+      "Pacciamatura scura per riscaldare il terreno nelle zone fresche.",
+      "Tutorare: i frutti sono pesanti."
+    ],
+    "yieldKgM2": 4,
+    "container": {
+      "suitability": "Buona",
+      "minLiters": 15,
+      "minDepthCm": 30,
+      "notes": "Preferire varietà compatte; il vaso scuro scalda le radici."
+    }
+  },
+  {
+    "id": "lattuga",
+    "name": "Lattuga",
+    "scientificName": "Lactuca sativa",
+    "family": "Asteraceae",
+    "category": "Foglia",
+    "emoji": "🥬",
+    "description": "Ortaggio da foglia microtermo a ciclo breve. Sopra i 27 °C va in termodormienza (non germina) e con giorni lunghi e caldo prefiorisce (\"monta a seme\"), diventando amara.",
+    "lifecycle": "Annuale",
+    "planting": {
+      "method": "Semina o trapianto",
+      "tempMinMean": 6,
+      "tempMaxMean": 23,
+      "depthCm": 0.5,
+      "spacingRowCm": 30,
+      "spacingPlantCm": 25
+    },
+    "temperature": {
+      "germMin": 2,
+      "germOpt": 18,
+      "baseGdd": 4,
+      "growthMin": 5,
+      "optMin": 12,
+      "optMax": 20,
+      "growthMax": 27,
+      "frostTender": false,
+      "minSurvival": -3
+    },
+    "gddToMaturity": 650,
+    "daysToMaturity": 55,
+    "harvestWindowDays": 15,
+    "continuousHarvest": false,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.7,
+      "kcMid": 1.0,
+      "kcEnd": 0.95,
+      "stages": [
+        20,
+        30,
+        15,
+        10
+      ],
+      "rootDepthMin": 0.3,
+      "rootDepthMax": 0.5,
+      "depletionFraction": 0.3,
+      "notes": "Radici superficiali: irrigazioni brevi e frequenti; l'umidità costante evita sapore amaro."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 7.0,
+      "sun": "Sole o mezz'ombra (d'estate)",
+      "notes": "Terreno soffice e fresco."
+    },
+    "nutrition": {
+      "demand": "Media",
+      "startAfterDays": 15,
+      "intervalDays": 20,
+      "stopBeforeEndDays": 15,
+      "vegetative": "Azoto moderato: eccessi accumulano nitrati nelle foglie.",
+      "reproductive": "Sospendere la concimazione nelle ultime 2 settimane.",
+      "organic": "Compost ben maturo in pre-semina; evitare letame fresco."
+    },
+    "harvest": {
+      "signs": "Cespo compatto e pieno; per le varietà da taglio foglie di 10–15 cm.",
+      "tips": "Raccogliere al mattino presto, quando le foglie sono turgide."
+    },
+    "companions": [
+      "carota",
+      "ravanello",
+      "fragola",
+      "cipolla"
+    ],
+    "antagonists": [
+      "prezzemolo"
+    ],
+    "pests": [
+      "Lumache e limacce",
+      "Afidi",
+      "Peronospora (Bremia lactucae)"
+    ],
+    "tips": [
+      "Semine scalari ogni 2–3 settimane per avere sempre insalata.",
+      "In estate preferire varietà resistenti alla salita a seme e ombreggiare."
+    ],
+    "yieldKgM2": 2.5,
+    "container": {
+      "suitability": "Ottima",
+      "minLiters": 3,
+      "minDepthCm": 15,
+      "notes": "Ideale in cassette e fioriere basse."
+    }
+  },
+  {
+    "id": "basilico",
+    "name": "Basilico",
+    "scientificName": "Ocimum basilicum",
+    "family": "Lamiaceae",
+    "category": "Aromatica",
+    "emoji": "🌿",
+    "description": "Aromatica termofila molto sensibile al freddo: sotto i 10 °C le foglie anneriscono. Ricca di oli essenziali (linalolo, eugenolo, estragolo).",
+    "lifecycle": "Annuale",
+    "planting": {
+      "method": "Semina o trapianto",
+      "tempMinMean": 17,
+      "tempMaxMean": 28,
+      "depthCm": 0.5,
+      "spacingRowCm": 30,
+      "spacingPlantCm": 25
+    },
+    "temperature": {
+      "germMin": 15,
+      "germOpt": 24,
+      "baseGdd": 10,
+      "growthMin": 12,
+      "optMin": 20,
+      "optMax": 28,
+      "growthMax": 35,
+      "frostTender": true,
+      "minSurvival": 5
+    },
+    "gddToMaturity": 500,
+    "daysToMaturity": 55,
+    "harvestWindowDays": 80,
+    "continuousHarvest": true,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.6,
+      "kcMid": 1.0,
+      "kcEnd": 0.9,
+      "stages": [
+        20,
+        25,
+        50,
+        20
+      ],
+      "rootDepthMin": 0.3,
+      "rootDepthMax": 0.4,
+      "depletionFraction": 0.4,
+      "notes": "Terreno costantemente umido ma mai fradicio; teme i ristagni (fusariosi)."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 7.5,
+      "sun": "Pieno sole",
+      "notes": "Leggero e drenato."
+    },
+    "nutrition": {
+      "demand": "Media",
+      "startAfterDays": 20,
+      "intervalDays": 20,
+      "stopBeforeEndDays": 0,
+      "vegetative": "Concime azotato leggero per stimolare foglie.",
+      "reproductive": "Cimare i fiori invece di concimare: la fioritura riduce l'aroma.",
+      "organic": "Humus di lombrico in superficie."
+    },
+    "harvest": {
+      "signs": "Pianta di almeno 15–20 cm con 3–4 palchi di foglie.",
+      "tips": "Cimare sopra un nodo con due foglie: la pianta si ramifica."
+    },
+    "companions": [
+      "pomodoro",
+      "peperone"
+    ],
+    "antagonists": [
+      "ruta"
+    ],
+    "pests": [
+      "Peronospora del basilico (Peronospora belbahrii)",
+      "Fusariosi",
+      "Lumache"
+    ],
+    "tips": [
+      "Eliminare le infiorescenze appena compaiono.",
+      "Ottimo consociato al pomodoro: ne migliora l'aroma secondo la tradizione orticola."
+    ],
+    "yieldKgM2": 1,
+    "container": {
+      "suitability": "Ottima",
+      "minLiters": 2,
+      "minDepthCm": 15,
+      "notes": "Perfetto in vaso, anche sul davanzale."
+    }
+  },
+  {
+    "id": "carota",
+    "name": "Carota",
+    "scientificName": "Daucus carota subsp. sativus",
+    "family": "Apiaceae",
+    "category": "Radice",
+    "emoji": "🥕",
+    "description": "Radice fittonante ricca di carotenoidi. Germinazione lenta (10–20 giorni). Il colore migliore si ottiene tra 15 e 21 °C; terreni sassosi o compatti producono radici biforcute.",
+    "lifecycle": "Biennale (coltivata come annuale)",
+    "planting": {
+      "method": "Semina diretta",
+      "tempMinMean": 8,
+      "tempMaxMean": 24,
+      "depthCm": 1,
+      "spacingRowCm": 25,
+      "spacingPlantCm": 5
+    },
+    "temperature": {
+      "germMin": 7,
+      "germOpt": 22,
+      "baseGdd": 4,
+      "growthMin": 6,
+      "optMin": 15,
+      "optMax": 21,
+      "growthMax": 30,
+      "frostTender": false,
+      "minSurvival": -5
+    },
+    "gddToMaturity": 1050,
+    "daysToMaturity": 80,
+    "harvestWindowDays": 40,
+    "continuousHarvest": false,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.7,
+      "kcMid": 1.05,
+      "kcEnd": 0.95,
+      "stages": [
+        20,
+        30,
+        50,
+        20
+      ],
+      "rootDepthMin": 0.5,
+      "rootDepthMax": 1.0,
+      "depletionFraction": 0.35,
+      "notes": "Mantenere umido il seminativo fino all'emergenza. Irrigazioni irregolari causano spaccature."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 7.0,
+      "sun": "Pieno sole",
+      "notes": "Terreno sciolto, profondo, senza sassi; evitare letame fresco (radici biforcute)."
+    },
+    "nutrition": {
+      "demand": "Media",
+      "startAfterDays": 30,
+      "intervalDays": 30,
+      "stopBeforeEndDays": 20,
+      "vegetative": "Poco azoto, più potassio e fosforo per lo sviluppo della radice.",
+      "reproductive": "Potassio per dolcezza e conservabilità.",
+      "organic": "Coltivare dopo una coltura letamata l'anno precedente."
+    },
+    "harvest": {
+      "signs": "Colletto di 2–3 cm di diametro che affiora dal terreno.",
+      "tips": "Bagnare il terreno prima di estrarle; si conservano in terra fino alle gelate forti."
+    },
+    "companions": [
+      "cipolla",
+      "porro",
+      "lattuga",
+      "pomodoro"
+    ],
+    "antagonists": [
+      "aneto"
+    ],
+    "pests": [
+      "Mosca della carota (Psila rosae)",
+      "Nematodi",
+      "Alternaria"
+    ],
+    "tips": [
+      "Diradare a 4–5 cm quando hanno 3–4 foglie.",
+      "Consociare con cipolla: gli odori si confondono a vicenda contro le rispettive mosche."
+    ],
+    "yieldKgM2": 4,
+    "container": {
+      "suitability": "Buona",
+      "minLiters": 10,
+      "minDepthCm": 30,
+      "notes": "Usare varietà corte (tipo Parigina) se il vaso è poco profondo."
+    }
+  },
+  {
+    "id": "cipolla",
+    "name": "Cipolla",
+    "scientificName": "Allium cepa",
+    "family": "Amaryllidaceae",
+    "category": "Bulbo",
+    "emoji": "🧅",
+    "description": "La bulbificazione è indotta dal fotoperiodo: le varietà a giorno corto bulbificano con 11–12 h di luce, quelle a giorno lungo con 14–16 h. Rustica nelle prime fasi.",
+    "lifecycle": "Biennale (coltivata come annuale)",
+    "planting": {
+      "method": "Bulbilli o trapianto",
+      "tempMinMean": 6,
+      "tempMaxMean": 20,
+      "depthCm": 2,
+      "spacingRowCm": 30,
+      "spacingPlantCm": 10
+    },
+    "temperature": {
+      "germMin": 2,
+      "germOpt": 22,
+      "baseGdd": 5,
+      "growthMin": 5,
+      "optMin": 13,
+      "optMax": 24,
+      "growthMax": 32,
+      "frostTender": false,
+      "minSurvival": -8
+    },
+    "gddToMaturity": 1700,
+    "daysToMaturity": 130,
+    "harvestWindowDays": 30,
+    "continuousHarvest": false,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.7,
+      "kcMid": 1.05,
+      "kcEnd": 0.75,
+      "stages": [
+        15,
+        25,
+        70,
+        40
+      ],
+      "rootDepthMin": 0.3,
+      "rootDepthMax": 0.6,
+      "depletionFraction": 0.3,
+      "notes": "Radici superficiali. Sospendere le irrigazioni 2–3 settimane prima della raccolta per favorire la conservazione."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 7.5,
+      "sun": "Pieno sole",
+      "notes": "Terreno sciolto, senza ristagni."
+    },
+    "nutrition": {
+      "demand": "Media",
+      "startAfterDays": 30,
+      "intervalDays": 30,
+      "stopBeforeEndDays": 40,
+      "vegetative": "Azoto nelle prime fasi di crescita fogliare.",
+      "reproductive": "Durante la bulbificazione solo potassio; l'azoto tardivo peggiora la conservazione.",
+      "organic": "Compost maturo; no letame fresco."
+    },
+    "harvest": {
+      "signs": "Foglie che ingialliscono e si piegano a terra (oltre il 50%).",
+      "tips": "Lasciare asciugare i bulbi al sole 2–3 giorni prima di riporli."
+    },
+    "companions": [
+      "carota",
+      "lattuga",
+      "fragola",
+      "bietola"
+    ],
+    "antagonists": [
+      "fagiolo",
+      "pisello",
+      "fava"
+    ],
+    "pests": [
+      "Mosca della cipolla",
+      "Peronospora (Peronospora destructor)",
+      "Tripidi"
+    ],
+    "tips": [
+      "Scegliere varietà adatte alla latitudine (giorno corto al Sud, giorno lungo al Nord).",
+      "Sarchiature frequenti: soffre la competizione con le infestanti."
+    ],
+    "yieldKgM2": 3.5,
+    "container": {
+      "suitability": "Discreta",
+      "minLiters": 5,
+      "minDepthCm": 20,
+      "notes": "Resa bassa per lo spazio occupato."
+    }
+  },
+  {
+    "id": "aglio",
+    "name": "Aglio",
+    "scientificName": "Allium sativum",
+    "family": "Amaryllidaceae",
+    "category": "Bulbo",
+    "emoji": "🧄",
+    "description": "Propagato per bulbilli (spicchi). Richiede un periodo di freddo (vernalizzazione, < 10 °C per 30–60 giorni) per differenziare correttamente il bulbo in spicchi.",
+    "lifecycle": "Perenne (coltivato come annuale)",
+    "planting": {
+      "method": "Spicchi",
+      "tempMinMean": 5,
+      "tempMaxMean": 16,
+      "depthCm": 4,
+      "spacingRowCm": 30,
+      "spacingPlantCm": 12
+    },
+    "temperature": {
+      "germMin": 0,
+      "germOpt": 15,
+      "baseGdd": 0,
+      "growthMin": 2,
+      "optMin": 12,
+      "optMax": 22,
+      "growthMax": 30,
+      "frostTender": false,
+      "minSurvival": -15
+    },
+    "gddToMaturity": 2000,
+    "daysToMaturity": 220,
+    "harvestWindowDays": 20,
+    "continuousHarvest": false,
+    "needsVernalization": true,
+    "water": {
+      "kcIni": 0.7,
+      "kcMid": 1.0,
+      "kcEnd": 0.7,
+      "stages": [
+        30,
+        60,
+        90,
+        40
+      ],
+      "rootDepthMin": 0.3,
+      "rootDepthMax": 0.5,
+      "depletionFraction": 0.3,
+      "notes": "In inverno di solito bastano le piogge. Irrigare in primavera se secco; sospendere un mese prima della raccolta."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 7.5,
+      "sun": "Pieno sole",
+      "notes": "Teme i ristagni: marciume dei bulbi."
+    },
+    "nutrition": {
+      "demand": "Bassa",
+      "startAfterDays": 120,
+      "intervalDays": 40,
+      "stopBeforeEndDays": 45,
+      "vegetative": "Una leggera concimazione azotata alla ripresa vegetativa primaverile.",
+      "reproductive": "Potassio durante l'ingrossamento del bulbo.",
+      "organic": "Cenere di legna (potassio) a fine inverno."
+    },
+    "harvest": {
+      "signs": "Due terzi delle foglie ingiallite e secche.",
+      "tips": "Annodare le foglie a inizio maggio favorisce l'ingrossamento (pratica tradizionale)."
+    },
+    "companions": [
+      "fragola",
+      "carota",
+      "pomodoro",
+      "lattuga"
+    ],
+    "antagonists": [
+      "fagiolo",
+      "pisello",
+      "fava",
+      "cavolo"
+    ],
+    "pests": [
+      "Ruggine (Puccinia allii)",
+      "Marciume bianco",
+      "Nematodi"
+    ],
+    "tips": [
+      "Detto popolare: 'pianta l'aglio in ottobre o novembre'. Al Nord evitare zone con ristagno invernale.",
+      "Usare spicchi esterni, grossi e sani, da aglio certificato."
+    ],
+    "yieldKgM2": 1.2,
+    "container": {
+      "suitability": "Buona",
+      "minLiters": 5,
+      "minDepthCm": 20,
+      "notes": "Fioriera profonda almeno 20 cm, terriccio molto drenante."
+    }
+  },
+  {
+    "id": "patata",
+    "name": "Patata",
+    "scientificName": "Solanum tuberosum",
+    "family": "Solanaceae",
+    "category": "Tubero",
+    "emoji": "🥔",
+    "description": "La tuberizzazione è favorita da temperature fresche (15–20 °C) e inibita sopra i 29 °C. Teme le gelate tardive sulla vegetazione.",
+    "lifecycle": "Annuale",
+    "planting": {
+      "method": "Tuberi seme",
+      "tempMinMean": 8,
+      "tempMaxMean": 20,
+      "depthCm": 10,
+      "spacingRowCm": 70,
+      "spacingPlantCm": 30
+    },
+    "temperature": {
+      "germMin": 7,
+      "germOpt": 18,
+      "baseGdd": 7,
+      "growthMin": 8,
+      "optMin": 15,
+      "optMax": 20,
+      "growthMax": 29,
+      "frostTender": false,
+      "minSurvival": -3
+    },
+    "gddToMaturity": 1000,
+    "daysToMaturity": 100,
+    "harvestWindowDays": 30,
+    "continuousHarvest": false,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.5,
+      "kcMid": 1.15,
+      "kcEnd": 0.75,
+      "stages": [
+        25,
+        30,
+        45,
+        30
+      ],
+      "rootDepthMin": 0.4,
+      "rootDepthMax": 0.6,
+      "depletionFraction": 0.35,
+      "notes": "Fase critica: dalla fioritura all'ingrossamento dei tuberi. Stress idrico = tuberi piccoli e deformi."
+    },
+    "soil": {
+      "phMin": 5.0,
+      "phMax": 6.5,
+      "sun": "Pieno sole",
+      "notes": "Terreno leggero, leggermente acido (limita la scabbia)."
+    },
+    "nutrition": {
+      "demand": "Alta",
+      "startAfterDays": 30,
+      "intervalDays": 30,
+      "stopBeforeEndDays": 30,
+      "vegetative": "Azoto e fosforo durante lo sviluppo vegetativo; concimare alla rincalzatura.",
+      "reproductive": "Potassio durante la tuberizzazione.",
+      "organic": "Letame maturo in autunno precedente; evitare calce."
+    },
+    "harvest": {
+      "signs": "Piante completamente secche; la buccia non si stacca strofinandola col pollice.",
+      "tips": "Raccogliere con terreno asciutto e far asciugare all'ombra."
+    },
+    "companions": [
+      "fagiolo",
+      "fava",
+      "cavolo"
+    ],
+    "antagonists": [
+      "pomodoro",
+      "zucca",
+      "cetriolo",
+      "girasole"
+    ],
+    "pests": [
+      "Dorifora (Leptinotarsa decemlineata)",
+      "Peronospora",
+      "Elateridi"
+    ],
+    "tips": [
+      "Rincalzare quando le piante hanno 20 cm per evitare tuberi inverditi (solanina).",
+      "Pre-germogliare i tuberi alla luce 3–4 settimane prima."
+    ],
+    "yieldKgM2": 3,
+    "container": {
+      "suitability": "Buona",
+      "minLiters": 30,
+      "minDepthCm": 40,
+      "notes": "Coltivabile in sacchi o bidoni rincalzando man mano."
+    }
+  },
+  {
+    "id": "fagiolo",
+    "name": "Fagiolo",
+    "scientificName": "Phaseolus vulgaris",
+    "family": "Fabaceae",
+    "category": "Legume",
+    "emoji": "🫘",
+    "description": "Leguminosa azotofissatrice (simbiosi con Rhizobium). Sensibile al freddo: i semi marciscono in terreni sotto 12 °C. Varietà nane (ciclo breve) e rampicanti.",
+    "lifecycle": "Annuale",
+    "planting": {
+      "method": "Semina diretta",
+      "tempMinMean": 15,
+      "tempMaxMean": 27,
+      "depthCm": 3,
+      "spacingRowCm": 50,
+      "spacingPlantCm": 10
+    },
+    "temperature": {
+      "germMin": 12,
+      "germOpt": 27,
+      "baseGdd": 10,
+      "growthMin": 12,
+      "optMin": 18,
+      "optMax": 26,
+      "growthMax": 32,
+      "frostTender": true,
+      "minSurvival": 2
+    },
+    "gddToMaturity": 600,
+    "daysToMaturity": 60,
+    "harvestWindowDays": 30,
+    "continuousHarvest": true,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.5,
+      "kcMid": 1.05,
+      "kcEnd": 0.9,
+      "stages": [
+        20,
+        30,
+        30,
+        10
+      ],
+      "rootDepthMin": 0.5,
+      "rootDepthMax": 0.7,
+      "depletionFraction": 0.45,
+      "notes": "Fase critica fioritura-allegagione: il caldo secco provoca cascola dei fiori."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 7.5,
+      "sun": "Pieno sole",
+      "notes": "Non tollera la salinità."
+    },
+    "nutrition": {
+      "demand": "Bassa",
+      "startAfterDays": 30,
+      "intervalDays": 0,
+      "stopBeforeEndDays": 0,
+      "vegetative": "Non serve azoto: lo fissa dall'atmosfera. Eventualmente fosforo e potassio alla semina.",
+      "reproductive": "Nessuna concimazione di routine.",
+      "organic": "Sfrutta la fertilità residua della coltura precedente."
+    },
+    "harvest": {
+      "signs": "Fagiolini: baccelli turgidi che si spezzano netti, semi appena accennati. Da sgranare: baccelli secchi.",
+      "tips": "Raccogliere ogni 2–3 giorni per prolungare la produzione."
+    },
+    "companions": [
+      "patata",
+      "carota",
+      "zucchina",
+      "mais"
+    ],
+    "antagonists": [
+      "cipolla",
+      "aglio",
+      "finocchio"
+    ],
+    "pests": [
+      "Afidi neri",
+      "Tonchio",
+      "Antracnosi",
+      "Ruggine"
+    ],
+    "tips": [
+      "Lasciare le radici nel terreno a fine ciclo: arricchiscono il suolo di azoto.",
+      "Ottimo precessore per cavoli e ortaggi esigenti."
+    ],
+    "yieldKgM2": 1.5,
+    "container": {
+      "suitability": "Buona",
+      "minLiters": 10,
+      "minDepthCm": 25,
+      "notes": "Meglio le varietà nane; le rampicanti richiedono una rete."
+    }
+  },
+  {
+    "id": "pisello",
+    "name": "Pisello",
+    "scientificName": "Pisum sativum",
+    "family": "Fabaceae",
+    "category": "Legume",
+    "emoji": "🫛",
+    "description": "Leguminosa microterma, azotofissatrice. Le piantine tollerano brevi gelate, ma il caldo sopra i 27 °C ne blocca la produzione.",
+    "lifecycle": "Annuale",
+    "planting": {
+      "method": "Semina diretta",
+      "tempMinMean": 5,
+      "tempMaxMean": 17,
+      "depthCm": 4,
+      "spacingRowCm": 50,
+      "spacingPlantCm": 5
+    },
+    "temperature": {
+      "germMin": 4,
+      "germOpt": 22,
+      "baseGdd": 4,
+      "growthMin": 5,
+      "optMin": 13,
+      "optMax": 18,
+      "growthMax": 27,
+      "frostTender": false,
+      "minSurvival": -5
+    },
+    "gddToMaturity": 800,
+    "daysToMaturity": 70,
+    "harvestWindowDays": 20,
+    "continuousHarvest": true,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.5,
+      "kcMid": 1.15,
+      "kcEnd": 1.1,
+      "stages": [
+        15,
+        25,
+        35,
+        15
+      ],
+      "rootDepthMin": 0.6,
+      "rootDepthMax": 1.0,
+      "depletionFraction": 0.35,
+      "notes": "Poche irrigazioni fino alla fioritura, poi umidità costante."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 7.5,
+      "sun": "Pieno sole",
+      "notes": "Drenato, non eccessivamente fertile."
+    },
+    "nutrition": {
+      "demand": "Bassa",
+      "startAfterDays": 30,
+      "intervalDays": 0,
+      "stopBeforeEndDays": 0,
+      "vegetative": "Nessun azoto: rischio di sola vegetazione.",
+      "reproductive": "Nessuna concimazione di routine.",
+      "organic": "Poca cenere (potassio) alla semina."
+    },
+    "harvest": {
+      "signs": "Baccelli pieni e verde brillante, semi teneri e dolci.",
+      "tips": "Gli zuccheri si convertono rapidamente in amido: consumare subito."
+    },
+    "companions": [
+      "carota",
+      "ravanello",
+      "lattuga"
+    ],
+    "antagonists": [
+      "cipolla",
+      "aglio"
+    ],
+    "pests": [
+      "Oidio",
+      "Afidi",
+      "Tortrice del pisello"
+    ],
+    "tips": [
+      "Fornire reti o rametti di sostegno.",
+      "Al Centro-Sud si semina in autunno, al Nord a fine inverno."
+    ],
+    "yieldKgM2": 0.8,
+    "container": {
+      "suitability": "Discreta",
+      "minLiters": 10,
+      "minDepthCm": 25,
+      "notes": "Resa bassa, richiede un sostegno."
+    }
+  },
+  {
+    "id": "cetriolo",
+    "name": "Cetriolo",
+    "scientificName": "Cucumis sativus",
+    "family": "Cucurbitaceae",
+    "category": "Frutto",
+    "emoji": "🥒",
+    "description": "Cucurbitacea termofila e rampicante, composta al 95% d'acqua. Sensibile al freddo e alle variazioni di umidità (frutti amari per cucurbitacine).",
+    "lifecycle": "Annuale",
+    "planting": {
+      "method": "Semina diretta o trapianto",
+      "tempMinMean": 17,
+      "tempMaxMean": 28,
+      "depthCm": 2,
+      "spacingRowCm": 100,
+      "spacingPlantCm": 50
+    },
+    "temperature": {
+      "germMin": 15,
+      "germOpt": 28,
+      "baseGdd": 10,
+      "growthMin": 14,
+      "optMin": 20,
+      "optMax": 28,
+      "growthMax": 35,
+      "frostTender": true,
+      "minSurvival": 3
+    },
+    "gddToMaturity": 600,
+    "daysToMaturity": 55,
+    "harvestWindowDays": 50,
+    "continuousHarvest": true,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.6,
+      "kcMid": 1.0,
+      "kcEnd": 0.75,
+      "stages": [
+        20,
+        30,
+        40,
+        15
+      ],
+      "rootDepthMin": 0.7,
+      "rootDepthMax": 1.2,
+      "depletionFraction": 0.5,
+      "notes": "Umidità costante; lo stress idrico rende i frutti amari."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 7.0,
+      "sun": "Pieno sole",
+      "notes": "Ricco di sostanza organica."
+    },
+    "nutrition": {
+      "demand": "Alta",
+      "startAfterDays": 20,
+      "intervalDays": 15,
+      "stopBeforeEndDays": 0,
+      "vegetative": "Equilibrato dopo l'attecchimento.",
+      "reproductive": "Potassio in produzione.",
+      "organic": "Compost o letame maturo in buca."
+    },
+    "harvest": {
+      "signs": "Frutto verde scuro, sodo, prima che ingiallisca.",
+      "tips": "Raccogliere spesso: i frutti maturi bloccano la produzione."
+    },
+    "companions": [
+      "fagiolo",
+      "lattuga",
+      "aneto"
+    ],
+    "antagonists": [
+      "patata",
+      "zucchina"
+    ],
+    "pests": [
+      "Oidio",
+      "Peronospora (Pseudoperonospora cubensis)",
+      "Afidi"
+    ],
+    "tips": [
+      "Coltivazione verticale su rete: frutti più puliti, meno malattie."
+    ],
+    "yieldKgM2": 5,
+    "container": {
+      "suitability": "Buona",
+      "minLiters": 20,
+      "minDepthCm": 30,
+      "notes": "Con una rete verticale occupa poco spazio."
+    }
+  },
+  {
+    "id": "spinacio",
+    "name": "Spinacio",
+    "scientificName": "Spinacia oleracea",
+    "family": "Amaranthaceae",
+    "category": "Foglia",
+    "emoji": "🥬",
+    "description": "Ortaggio da foglia microtermo e molto rustico. Pianta longidiurna: con giorni oltre 12–14 h e caldo monta rapidamente a seme.",
+    "lifecycle": "Annuale",
+    "planting": {
+      "method": "Semina diretta",
+      "tempMinMean": 4,
+      "tempMaxMean": 18,
+      "depthCm": 2,
+      "spacingRowCm": 30,
+      "spacingPlantCm": 8
+    },
+    "temperature": {
+      "germMin": 2,
+      "germOpt": 20,
+      "baseGdd": 2,
+      "growthMin": 4,
+      "optMin": 10,
+      "optMax": 18,
+      "growthMax": 24,
+      "frostTender": false,
+      "minSurvival": -9
+    },
+    "gddToMaturity": 600,
+    "daysToMaturity": 50,
+    "harvestWindowDays": 30,
+    "continuousHarvest": true,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.7,
+      "kcMid": 1.0,
+      "kcEnd": 0.95,
+      "stages": [
+        20,
+        20,
+        15,
+        5
+      ],
+      "rootDepthMin": 0.3,
+      "rootDepthMax": 0.5,
+      "depletionFraction": 0.2,
+      "notes": "Molto sensibile alla carenza idrica (p = 0,20): suolo sempre fresco."
+    },
+    "soil": {
+      "phMin": 6.5,
+      "phMax": 7.5,
+      "sun": "Sole o mezz'ombra",
+      "notes": "Non tollera terreni acidi."
+    },
+    "nutrition": {
+      "demand": "Media",
+      "startAfterDays": 15,
+      "intervalDays": 20,
+      "stopBeforeEndDays": 15,
+      "vegetative": "Azoto moderato, sospendere 2 settimane prima della raccolta (nitrati).",
+      "reproductive": "—",
+      "organic": "Compost maturo."
+    },
+    "harvest": {
+      "signs": "Rosette con 6–8 foglie ben sviluppate.",
+      "tips": "Raccolta a foglie esterne per più tagli."
+    },
+    "companions": [
+      "fragola",
+      "cavolo",
+      "ravanello"
+    ],
+    "antagonists": [
+      "bietola"
+    ],
+    "pests": [
+      "Peronospora (Peronospora farinosa)",
+      "Afidi",
+      "Minatori fogliari"
+    ],
+    "tips": [
+      "Semina autunnale: si raccoglie fino a primavera."
+    ],
+    "yieldKgM2": 1.5,
+    "container": {
+      "suitability": "Ottima",
+      "minLiters": 5,
+      "minDepthCm": 20,
+      "notes": "Ottimo in fioriera, anche a mezz’ombra."
+    }
+  },
+  {
+    "id": "bietola",
+    "name": "Bietola da coste",
+    "scientificName": "Beta vulgaris subsp. vulgaris var. cicla",
+    "family": "Amaranthaceae",
+    "category": "Foglia",
+    "emoji": "🥬",
+    "description": "Ortaggio da foglia rustico e produttivo, tollera bene sia caldo moderato sia freddo. Raccolta a foglie per mesi.",
+    "lifecycle": "Biennale (coltivata come annuale)",
+    "planting": {
+      "method": "Semina o trapianto",
+      "tempMinMean": 8,
+      "tempMaxMean": 25,
+      "depthCm": 2,
+      "spacingRowCm": 40,
+      "spacingPlantCm": 30
+    },
+    "temperature": {
+      "germMin": 5,
+      "germOpt": 25,
+      "baseGdd": 5,
+      "growthMin": 5,
+      "optMin": 15,
+      "optMax": 24,
+      "growthMax": 32,
+      "frostTender": false,
+      "minSurvival": -6
+    },
+    "gddToMaturity": 700,
+    "daysToMaturity": 60,
+    "harvestWindowDays": 120,
+    "continuousHarvest": true,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.7,
+      "kcMid": 1.0,
+      "kcEnd": 0.95,
+      "stages": [
+        20,
+        30,
+        60,
+        20
+      ],
+      "rootDepthMin": 0.4,
+      "rootDepthMax": 0.6,
+      "depletionFraction": 0.35,
+      "notes": "Irrigazioni regolari per foglie tenere."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 7.5,
+      "sun": "Sole o mezz'ombra",
+      "notes": "Tollera una lieve salinità."
+    },
+    "nutrition": {
+      "demand": "Media",
+      "startAfterDays": 25,
+      "intervalDays": 25,
+      "stopBeforeEndDays": 0,
+      "vegetative": "Azoto dopo ogni taglio importante.",
+      "reproductive": "—",
+      "organic": "Compost o stallatico."
+    },
+    "harvest": {
+      "signs": "Foglie esterne lunghe 20–30 cm.",
+      "tips": "Lasciare sempre il cuore: ricaccia continuamente."
+    },
+    "companions": [
+      "cipolla",
+      "lattuga",
+      "cavolo"
+    ],
+    "antagonists": [
+      "spinacio"
+    ],
+    "pests": [
+      "Cercospora",
+      "Afidi",
+      "Lumache"
+    ],
+    "tips": [
+      "Seminata a fine estate produce fino alla primavera nelle zone miti."
+    ],
+    "yieldKgM2": 4,
+    "container": {
+      "suitability": "Buona",
+      "minLiters": 10,
+      "minDepthCm": 30,
+      "notes": "Produce a lungo anche in vaso."
+    }
+  },
+  {
+    "id": "cavolfiore",
+    "name": "Cavolfiore",
+    "scientificName": "Brassica oleracea var. botrytis",
+    "family": "Brassicaceae",
+    "category": "Infiorescenza",
+    "emoji": "🥦",
+    "description": "Si consuma l'infiorescenza immatura (corimbo). Il caldo durante la formazione del corimbo produce teste piccole e sgranate; preferisce cicli autunnali.",
+    "lifecycle": "Annuale",
+    "planting": {
+      "method": "Trapianto",
+      "tempMinMean": 12,
+      "tempMaxMean": 26,
+      "depthCm": 5,
+      "spacingRowCm": 70,
+      "spacingPlantCm": 60
+    },
+    "temperature": {
+      "germMin": 5,
+      "germOpt": 25,
+      "baseGdd": 5,
+      "growthMin": 5,
+      "optMin": 14,
+      "optMax": 20,
+      "growthMax": 27,
+      "frostTender": false,
+      "minSurvival": -3
+    },
+    "gddToMaturity": 1000,
+    "daysToMaturity": 90,
+    "harvestWindowDays": 15,
+    "continuousHarvest": false,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.7,
+      "kcMid": 1.05,
+      "kcEnd": 0.95,
+      "stages": [
+        35,
+        50,
+        40,
+        15
+      ],
+      "rootDepthMin": 0.4,
+      "rootDepthMax": 0.7,
+      "depletionFraction": 0.45,
+      "notes": "Acqua regolare dal trapianto alla formazione del corimbo."
+    },
+    "soil": {
+      "phMin": 6.5,
+      "phMax": 7.5,
+      "sun": "Pieno sole",
+      "notes": "Terreno fertile, argilloso-limoso, ben dotato di calcio."
+    },
+    "nutrition": {
+      "demand": "Alta",
+      "startAfterDays": 20,
+      "intervalDays": 20,
+      "stopBeforeEndDays": 15,
+      "vegetative": "Abbondante azoto nello sviluppo fogliare.",
+      "reproductive": "Boro e molibdeno: le carenze causano corimbi cavi o deformi.",
+      "organic": "Letame maturo 4–5 kg/m² prima del trapianto."
+    },
+    "harvest": {
+      "signs": "Corimbo compatto, bianco, di 15–20 cm, prima che si apra.",
+      "tips": "Legare le foglie sopra il corimbo per mantenerlo bianco (imbianchimento)."
+    },
+    "companions": [
+      "sedano",
+      "patata",
+      "bietola",
+      "lattuga"
+    ],
+    "antagonists": [
+      "fragola",
+      "pomodoro",
+      "aglio"
+    ],
+    "pests": [
+      "Cavolaia (Pieris brassicae)",
+      "Altica",
+      "Afidi ceroso"
+    ],
+    "tips": [
+      "Rete anti-insetto dopo il trapianto contro la cavolaia."
+    ],
+    "yieldKgM2": 2.5,
+    "container": {
+      "suitability": "Sconsigliata",
+      "minLiters": 30,
+      "minDepthCm": 35,
+      "notes": "Pianta grande e ciclo lungo: poco adatto al vaso."
+    }
+  },
+  {
+    "id": "broccolo",
+    "name": "Broccolo",
+    "scientificName": "Brassica oleracea var. italica",
+    "family": "Brassicaceae",
+    "category": "Infiorescenza",
+    "emoji": "🥦",
+    "description": "Brassicacea da infiorescenza di origine italiana. Dopo il taglio della testa centrale produce getti laterali per settimane.",
+    "lifecycle": "Annuale",
+    "planting": {
+      "method": "Trapianto",
+      "tempMinMean": 10,
+      "tempMaxMean": 25,
+      "depthCm": 5,
+      "spacingRowCm": 60,
+      "spacingPlantCm": 45
+    },
+    "temperature": {
+      "germMin": 5,
+      "germOpt": 25,
+      "baseGdd": 4,
+      "growthMin": 4,
+      "optMin": 15,
+      "optMax": 20,
+      "growthMax": 28,
+      "frostTender": false,
+      "minSurvival": -5
+    },
+    "gddToMaturity": 950,
+    "daysToMaturity": 75,
+    "harvestWindowDays": 40,
+    "continuousHarvest": true,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.7,
+      "kcMid": 1.05,
+      "kcEnd": 0.95,
+      "stages": [
+        35,
+        45,
+        40,
+        15
+      ],
+      "rootDepthMin": 0.4,
+      "rootDepthMax": 0.6,
+      "depletionFraction": 0.45,
+      "notes": "Regolare durante tutto il ciclo."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 7.5,
+      "sun": "Pieno sole",
+      "notes": "Fertile e fresco."
+    },
+    "nutrition": {
+      "demand": "Alta",
+      "startAfterDays": 20,
+      "intervalDays": 20,
+      "stopBeforeEndDays": 10,
+      "vegetative": "Azoto per lo sviluppo della pianta.",
+      "reproductive": "Boro per infiorescenze compatte.",
+      "organic": "Letame o compost in pre-impianto."
+    },
+    "harvest": {
+      "signs": "Testa compatta, boccioli chiusi verde scuro.",
+      "tips": "Tagliare con 10 cm di stelo: partiranno i getti laterali."
+    },
+    "companions": [
+      "sedano",
+      "cipolla",
+      "patata"
+    ],
+    "antagonists": [
+      "fragola",
+      "pomodoro"
+    ],
+    "pests": [
+      "Cavolaia",
+      "Altica",
+      "Afidi"
+    ],
+    "tips": [
+      "Se compaiono fiori gialli è troppo tardi: raccogliere prima."
+    ],
+    "yieldKgM2": 1.5,
+    "container": {
+      "suitability": "Discreta",
+      "minLiters": 25,
+      "minDepthCm": 35,
+      "notes": "Possibile in vasi grandi, resa modesta."
+    }
+  },
+  {
+    "id": "cavolo",
+    "name": "Cavolo cappuccio",
+    "scientificName": "Brassica oleracea var. capitata",
+    "family": "Brassicaceae",
+    "category": "Foglia",
+    "emoji": "🥬",
+    "description": "Brassicacea molto rustica che forma una testa compatta di foglie. Il freddo ne aumenta la dolcezza (accumulo di zuccheri).",
+    "lifecycle": "Biennale (coltivata come annuale)",
+    "planting": {
+      "method": "Trapianto",
+      "tempMinMean": 8,
+      "tempMaxMean": 24,
+      "depthCm": 5,
+      "spacingRowCm": 60,
+      "spacingPlantCm": 50
+    },
+    "temperature": {
+      "germMin": 5,
+      "germOpt": 25,
+      "baseGdd": 4,
+      "growthMin": 4,
+      "optMin": 15,
+      "optMax": 20,
+      "growthMax": 28,
+      "frostTender": false,
+      "minSurvival": -8
+    },
+    "gddToMaturity": 1200,
+    "daysToMaturity": 95,
+    "harvestWindowDays": 30,
+    "continuousHarvest": false,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.7,
+      "kcMid": 1.05,
+      "kcEnd": 0.95,
+      "stages": [
+        40,
+        60,
+        50,
+        15
+      ],
+      "rootDepthMin": 0.5,
+      "rootDepthMax": 0.8,
+      "depletionFraction": 0.45,
+      "notes": "Irrigazioni irregolari dopo la formazione della testa la fanno spaccare."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 7.5,
+      "sun": "Pieno sole",
+      "notes": "Argilloso, fresco, fertile."
+    },
+    "nutrition": {
+      "demand": "Alta",
+      "startAfterDays": 20,
+      "intervalDays": 25,
+      "stopBeforeEndDays": 20,
+      "vegetative": "Azoto abbondante nella fase di rosetta.",
+      "reproductive": "Potassio durante la formazione della testa.",
+      "organic": "Letame maturo 4 kg/m²."
+    },
+    "harvest": {
+      "signs": "Testa dura e compatta alla pressione.",
+      "tips": "Resiste in campo diverse settimane in inverno."
+    },
+    "companions": [
+      "sedano",
+      "patata",
+      "bietola"
+    ],
+    "antagonists": [
+      "fragola",
+      "pomodoro",
+      "aglio"
+    ],
+    "pests": [
+      "Cavolaia",
+      "Nottue",
+      "Afidi"
+    ],
+    "tips": [
+      "Rotazione di almeno 3 anni tra brassicacee (ernia del cavolo)."
+    ],
+    "yieldKgM2": 4,
+    "container": {
+      "suitability": "Discreta",
+      "minLiters": 25,
+      "minDepthCm": 30,
+      "notes": "Possibile in vasi grandi."
+    }
+  },
+  {
+    "id": "rucola",
+    "name": "Rucola",
+    "scientificName": "Eruca vesicaria subsp. sativa",
+    "family": "Brassicaceae",
+    "category": "Foglia",
+    "emoji": "🌱",
+    "description": "Brassicacea a ciclo brevissimo, ricca di glucosinolati (sapore piccante). Con il caldo diventa molto piccante e prefiorisce.",
+    "lifecycle": "Annuale",
+    "planting": {
+      "method": "Semina diretta",
+      "tempMinMean": 7,
+      "tempMaxMean": 23,
+      "depthCm": 0.5,
+      "spacingRowCm": 20,
+      "spacingPlantCm": 3
+    },
+    "temperature": {
+      "germMin": 5,
+      "germOpt": 20,
+      "baseGdd": 4,
+      "growthMin": 5,
+      "optMin": 12,
+      "optMax": 20,
+      "growthMax": 28,
+      "frostTender": false,
+      "minSurvival": -5
+    },
+    "gddToMaturity": 400,
+    "daysToMaturity": 35,
+    "harvestWindowDays": 30,
+    "continuousHarvest": true,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.7,
+      "kcMid": 1.0,
+      "kcEnd": 0.95,
+      "stages": [
+        10,
+        10,
+        15,
+        5
+      ],
+      "rootDepthMin": 0.2,
+      "rootDepthMax": 0.3,
+      "depletionFraction": 0.3,
+      "notes": "Terreno sempre umido: la siccità accentua la piccantezza e la salita a seme."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 7.5,
+      "sun": "Sole o mezz'ombra",
+      "notes": "Si adatta a quasi tutti i terreni."
+    },
+    "nutrition": {
+      "demand": "Bassa",
+      "startAfterDays": 15,
+      "intervalDays": 30,
+      "stopBeforeEndDays": 10,
+      "vegetative": "Leggero apporto azotato dopo il primo taglio.",
+      "reproductive": "—",
+      "organic": "Compost in pre-semina."
+    },
+    "harvest": {
+      "signs": "Foglie di 8–12 cm.",
+      "tips": "Taglio a 2–3 cm dal suolo: ricaccia 2–3 volte."
+    },
+    "companions": [
+      "lattuga",
+      "carota"
+    ],
+    "antagonists": [
+      "cavolo"
+    ],
+    "pests": [
+      "Altica (pulce di terra)",
+      "Afidi"
+    ],
+    "tips": [
+      "Rete anti-insetto fine contro l'altica, che bucherella le foglie."
+    ],
+    "yieldKgM2": 1.2,
+    "container": {
+      "suitability": "Ottima",
+      "minLiters": 3,
+      "minDepthCm": 15,
+      "notes": "Cassette basse, raccolte ripetute."
+    }
+  },
+  {
+    "id": "prezzemolo",
+    "name": "Prezzemolo",
+    "scientificName": "Petroselinum crispum",
+    "family": "Apiaceae",
+    "category": "Aromatica",
+    "emoji": "🌿",
+    "description": "Aromatica biennale rustica; germinazione molto lenta (fino a 4 settimane) per inibitori presenti nel seme. Ricco di vitamina C e K.",
+    "lifecycle": "Biennale",
+    "planting": {
+      "method": "Semina diretta o trapianto",
+      "tempMinMean": 8,
+      "tempMaxMean": 24,
+      "depthCm": 1,
+      "spacingRowCm": 25,
+      "spacingPlantCm": 15
+    },
+    "temperature": {
+      "germMin": 5,
+      "germOpt": 22,
+      "baseGdd": 4,
+      "growthMin": 5,
+      "optMin": 15,
+      "optMax": 22,
+      "growthMax": 30,
+      "frostTender": false,
+      "minSurvival": -8
+    },
+    "gddToMaturity": 1000,
+    "daysToMaturity": 75,
+    "harvestWindowDays": 150,
+    "continuousHarvest": true,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.6,
+      "kcMid": 1.0,
+      "kcEnd": 0.9,
+      "stages": [
+        25,
+        35,
+        60,
+        30
+      ],
+      "rootDepthMin": 0.3,
+      "rootDepthMax": 0.5,
+      "depletionFraction": 0.35,
+      "notes": "Umidità costante soprattutto in germinazione."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 7.0,
+      "sun": "Sole o mezz'ombra",
+      "notes": "Fresco e profondo."
+    },
+    "nutrition": {
+      "demand": "Media",
+      "startAfterDays": 30,
+      "intervalDays": 30,
+      "stopBeforeEndDays": 0,
+      "vegetative": "Azoto leggero dopo i tagli.",
+      "reproductive": "—",
+      "organic": "Humus di lombrico."
+    },
+    "harvest": {
+      "signs": "Steli con 3 segmenti di foglie.",
+      "tips": "Tagliare gli steli esterni alla base."
+    },
+    "companions": [
+      "pomodoro",
+      "carota"
+    ],
+    "antagonists": [
+      "lattuga"
+    ],
+    "pests": [
+      "Afidi",
+      "Septoriosi"
+    ],
+    "tips": [
+      "Mettere i semi in ammollo 24 h prima della semina per accelerare la germinazione."
+    ],
+    "yieldKgM2": 1.5,
+    "container": {
+      "suitability": "Ottima",
+      "minLiters": 3,
+      "minDepthCm": 20,
+      "notes": "Classico da vaso, anche in cucina."
+    }
+  },
+  {
+    "id": "fragola",
+    "name": "Fragola",
+    "scientificName": "Fragaria × ananassa",
+    "family": "Rosaceae",
+    "category": "Frutto",
+    "emoji": "🍓",
+    "description": "Perenne stolonifera. Le varietà unifere fioriscono in primavera dopo il freddo invernale; le rifiorenti producono fino all'autunno.",
+    "lifecycle": "Perenne",
+    "planting": {
+      "method": "Piantine",
+      "tempMinMean": 8,
+      "tempMaxMean": 20,
+      "depthCm": 0,
+      "spacingRowCm": 40,
+      "spacingPlantCm": 30
+    },
+    "temperature": {
+      "germMin": 10,
+      "germOpt": 20,
+      "baseGdd": 5,
+      "growthMin": 5,
+      "optMin": 15,
+      "optMax": 25,
+      "growthMax": 32,
+      "frostTender": false,
+      "minSurvival": -15
+    },
+    "gddToMaturity": 1100,
+    "daysToMaturity": 120,
+    "harvestWindowDays": 50,
+    "continuousHarvest": true,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.4,
+      "kcMid": 0.85,
+      "kcEnd": 0.75,
+      "stages": [
+        30,
+        40,
+        60,
+        30
+      ],
+      "rootDepthMin": 0.2,
+      "rootDepthMax": 0.3,
+      "depletionFraction": 0.2,
+      "notes": "Radici molto superficiali: irrigazioni frequenti e leggere, meglio a goccia. Non bagnare frutti e foglie (botrite)."
+    },
+    "soil": {
+      "phMin": 5.5,
+      "phMax": 6.5,
+      "sun": "Pieno sole",
+      "notes": "Leggermente acido, ricco e drenato."
+    },
+    "nutrition": {
+      "demand": "Media",
+      "startAfterDays": 30,
+      "intervalDays": 25,
+      "stopBeforeEndDays": 0,
+      "vegetative": "Azoto alla ripresa vegetativa di fine inverno.",
+      "reproductive": "Potassio in fioritura e fruttificazione per dolcezza.",
+      "organic": "Compost in autunno; pacciamatura con paglia."
+    },
+    "harvest": {
+      "signs": "Frutto rosso uniforme fino al colletto, profumato.",
+      "tips": "Raccogliere col picciolo nelle ore fresche."
+    },
+    "companions": [
+      "aglio",
+      "cipolla",
+      "lattuga",
+      "spinacio"
+    ],
+    "antagonists": [
+      "cavolo",
+      "cavolfiore",
+      "broccolo"
+    ],
+    "pests": [
+      "Botrite (muffa grigia)",
+      "Lumache",
+      "Oziorrinco",
+      "Drosophila suzukii"
+    ],
+    "tips": [
+      "Pacciamare con paglia (\"straw-berry\"): frutti puliti e meno muffe.",
+      "Rinnovare l'impianto ogni 3 anni con gli stoloni."
+    ],
+    "yieldKgM2": 1.2,
+    "container": {
+      "suitability": "Ottima",
+      "minLiters": 3,
+      "minDepthCm": 20,
+      "notes": "Ottima in vasi, fioriere e vasi a tasche."
+    }
+  },
+  {
+    "id": "zucca",
+    "name": "Zucca",
+    "scientificName": "Cucurbita maxima / C. moschata",
+    "family": "Cucurbitaceae",
+    "category": "Frutto",
+    "emoji": "🎃",
+    "description": "Cucurbitacea vigorosa a ciclo lungo; i frutti si raccolgono a piena maturazione e si conservano per mesi.",
+    "lifecycle": "Annuale",
+    "planting": {
+      "method": "Semina diretta o trapianto",
+      "tempMinMean": 16,
+      "tempMaxMean": 26,
+      "depthCm": 3,
+      "spacingRowCm": 200,
+      "spacingPlantCm": 150
+    },
+    "temperature": {
+      "germMin": 15,
+      "germOpt": 28,
+      "baseGdd": 10,
+      "growthMin": 13,
+      "optMin": 20,
+      "optMax": 28,
+      "growthMax": 35,
+      "frostTender": true,
+      "minSurvival": 2
+    },
+    "gddToMaturity": 1300,
+    "daysToMaturity": 110,
+    "harvestWindowDays": 30,
+    "continuousHarvest": false,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.5,
+      "kcMid": 1.0,
+      "kcEnd": 0.8,
+      "stages": [
+        20,
+        30,
+        30,
+        20
+      ],
+      "rootDepthMin": 1.0,
+      "rootDepthMax": 1.5,
+      "depletionFraction": 0.35,
+      "notes": "Radici profonde: irrigazioni abbondanti ma distanziate; ridurre a maturazione."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 7.5,
+      "sun": "Pieno sole",
+      "notes": "Molto ricco di sostanza organica."
+    },
+    "nutrition": {
+      "demand": "Alta",
+      "startAfterDays": 25,
+      "intervalDays": 20,
+      "stopBeforeEndDays": 30,
+      "vegetative": "Azoto per lo sviluppo dei tralci.",
+      "reproductive": "Potassio durante l'ingrossamento.",
+      "organic": "Buche riempite di letame maturo (classica coltura 'sul cumulo di letame')."
+    },
+    "harvest": {
+      "signs": "Peduncolo secco e sugheroso, buccia dura che non si incide con l'unghia.",
+      "tips": "Lasciare 5–10 cm di peduncolo e curare al sole 10 giorni per la conservazione."
+    },
+    "companions": [
+      "mais",
+      "fagiolo"
+    ],
+    "antagonists": [
+      "patata"
+    ],
+    "pests": [
+      "Oidio",
+      "Afidi",
+      "Virosi"
+    ],
+    "tips": [
+      "Isolare il frutto dal terreno con una tavoletta per evitare marciumi."
+    ],
+    "yieldKgM2": 3,
+    "container": {
+      "suitability": "Sconsigliata",
+      "minLiters": 80,
+      "minDepthCm": 50,
+      "notes": "Troppo vigorosa per un vaso."
+    }
+  },
+  {
+    "id": "ravanello",
+    "name": "Ravanello",
+    "scientificName": "Raphanus sativus",
+    "family": "Brassicaceae",
+    "category": "Radice",
+    "emoji": "🌱",
+    "description": "L'ortaggio dal ciclo più breve (3–5 settimane). Con caldo e giorni lunghi diventa piccante, legnoso e spugnoso.",
+    "lifecycle": "Annuale",
+    "planting": {
+      "method": "Semina diretta",
+      "tempMinMean": 5,
+      "tempMaxMean": 22,
+      "depthCm": 1,
+      "spacingRowCm": 15,
+      "spacingPlantCm": 4
+    },
+    "temperature": {
+      "germMin": 5,
+      "germOpt": 25,
+      "baseGdd": 4,
+      "growthMin": 5,
+      "optMin": 12,
+      "optMax": 18,
+      "growthMax": 27,
+      "frostTender": false,
+      "minSurvival": -4
+    },
+    "gddToMaturity": 350,
+    "daysToMaturity": 30,
+    "harvestWindowDays": 10,
+    "continuousHarvest": false,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.7,
+      "kcMid": 0.9,
+      "kcEnd": 0.85,
+      "stages": [
+        5,
+        10,
+        15,
+        5
+      ],
+      "rootDepthMin": 0.3,
+      "rootDepthMax": 0.5,
+      "depletionFraction": 0.3,
+      "notes": "Umidità costante: lo stress idrico lo rende piccante e cavo."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 7.0,
+      "sun": "Sole o mezz'ombra",
+      "notes": "Sciolto e fresco."
+    },
+    "nutrition": {
+      "demand": "Bassa",
+      "startAfterDays": 30,
+      "intervalDays": 0,
+      "stopBeforeEndDays": 0,
+      "vegetative": "Nessuna concimazione: ciclo troppo breve, basta la fertilità del suolo.",
+      "reproductive": "—",
+      "organic": "Compost leggero in pre-semina."
+    },
+    "harvest": {
+      "signs": "Radice di 2–3 cm che affiora dal terreno.",
+      "tips": "Non ritardare: diventano spugnosi in pochi giorni."
+    },
+    "companions": [
+      "lattuga",
+      "carota",
+      "pisello",
+      "spinacio"
+    ],
+    "antagonists": [
+      "cavolo"
+    ],
+    "pests": [
+      "Altica",
+      "Mosca del cavolo"
+    ],
+    "tips": [
+      "Ideale come coltura intercalare tra le file di carote (marca la fila)."
+    ],
+    "yieldKgM2": 1.5,
+    "container": {
+      "suitability": "Ottima",
+      "minLiters": 3,
+      "minDepthCm": 15,
+      "notes": "Il più semplice da coltivare in cassetta."
+    }
+  },
+  {
+    "id": "finocchio",
+    "name": "Finocchio",
+    "scientificName": "Foeniculum vulgare var. azoricum",
+    "family": "Apiaceae",
+    "category": "Grumolo",
+    "emoji": "🌱",
+    "description": "Si consuma il grumolo formato dalle guaine fogliari ingrossate. Caldo e giorni lunghi inducono la salita a seme: in Italia è tipicamente coltura di fine estate-autunno.",
+    "lifecycle": "Biennale (coltivato come annuale)",
+    "planting": {
+      "method": "Trapianto o semina",
+      "tempMinMean": 12,
+      "tempMaxMean": 24,
+      "depthCm": 1,
+      "spacingRowCm": 50,
+      "spacingPlantCm": 25
+    },
+    "temperature": {
+      "germMin": 8,
+      "germOpt": 20,
+      "baseGdd": 6,
+      "growthMin": 6,
+      "optMin": 15,
+      "optMax": 22,
+      "growthMax": 28,
+      "frostTender": false,
+      "minSurvival": -3
+    },
+    "gddToMaturity": 900,
+    "daysToMaturity": 90,
+    "harvestWindowDays": 20,
+    "continuousHarvest": false,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.6,
+      "kcMid": 1.0,
+      "kcEnd": 0.9,
+      "stages": [
+        25,
+        30,
+        30,
+        15
+      ],
+      "rootDepthMin": 0.4,
+      "rootDepthMax": 0.6,
+      "depletionFraction": 0.4,
+      "notes": "Lo stress idrico durante l'ingrossamento induce prefioritura e grumoli fibrosi."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 7.5,
+      "sun": "Pieno sole",
+      "notes": "Fresco e profondo."
+    },
+    "nutrition": {
+      "demand": "Media",
+      "startAfterDays": 20,
+      "intervalDays": 25,
+      "stopBeforeEndDays": 15,
+      "vegetative": "Azoto moderato.",
+      "reproductive": "Potassio per grumoli compatti.",
+      "organic": "Compost maturo."
+    },
+    "harvest": {
+      "signs": "Grumolo bianco, compatto, grande come un pugno.",
+      "tips": "Rincalzare 2–3 settimane prima per imbianchire."
+    },
+    "companions": [
+      "lattuga",
+      "porro"
+    ],
+    "antagonists": [
+      "pomodoro",
+      "fagiolo",
+      "peperone"
+    ],
+    "pests": [
+      "Afidi",
+      "Lumache",
+      "Sclerotinia"
+    ],
+    "tips": [
+      "Allelopatico: è meglio coltivarlo un po' isolato dalle altre colture."
+    ],
+    "yieldKgM2": 3,
+    "container": {
+      "suitability": "Discreta",
+      "minLiters": 10,
+      "minDepthCm": 30,
+      "notes": "Serve un vaso profondo e acqua costante."
+    }
+  },
+  {
+    "id": "fava",
+    "name": "Fava",
+    "scientificName": "Vicia faba",
+    "family": "Fabaceae",
+    "category": "Legume",
+    "emoji": "🫛",
+    "description": "Leguminosa rustica tipica del bacino mediterraneo, seminata in autunno al Centro-Sud e a fine inverno al Nord. Ottimo sovescio azotofissatore.",
+    "lifecycle": "Annuale",
+    "planting": {
+      "method": "Semina diretta",
+      "tempMinMean": 5,
+      "tempMaxMean": 16,
+      "depthCm": 5,
+      "spacingRowCm": 50,
+      "spacingPlantCm": 15
+    },
+    "temperature": {
+      "germMin": 3,
+      "germOpt": 20,
+      "baseGdd": 3,
+      "growthMin": 3,
+      "optMin": 12,
+      "optMax": 20,
+      "growthMax": 28,
+      "frostTender": false,
+      "minSurvival": -6
+    },
+    "gddToMaturity": 1200,
+    "daysToMaturity": 160,
+    "harvestWindowDays": 25,
+    "continuousHarvest": true,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.5,
+      "kcMid": 1.15,
+      "kcEnd": 1.1,
+      "stages": [
+        15,
+        25,
+        35,
+        15
+      ],
+      "rootDepthMin": 0.5,
+      "rootDepthMax": 0.7,
+      "depletionFraction": 0.45,
+      "notes": "Di solito bastano le piogge; irrigare in fioritura se la primavera è secca."
+    },
+    "soil": {
+      "phMin": 6.5,
+      "phMax": 8.0,
+      "sun": "Pieno sole",
+      "notes": "Anche argilloso e calcareo."
+    },
+    "nutrition": {
+      "demand": "Bassa",
+      "startAfterDays": 30,
+      "intervalDays": 0,
+      "stopBeforeEndDays": 0,
+      "vegetative": "Nessun azoto (azotofissatrice).",
+      "reproductive": "Nessuna concimazione di routine.",
+      "organic": "Un po' di fosforo (farina d'ossa) alla semina."
+    },
+    "harvest": {
+      "signs": "Baccelli gonfi, semi verdi teneri (consumo fresco) o baccelli neri secchi (granella).",
+      "tips": "Cimare le piante in fioritura per ridurre gli afidi neri."
+    },
+    "companions": [
+      "patata",
+      "carota",
+      "cavolo"
+    ],
+    "antagonists": [
+      "cipolla",
+      "aglio"
+    ],
+    "pests": [
+      "Afide nero (Aphis fabae)",
+      "Orobanche",
+      "Ruggine"
+    ],
+    "tips": [
+      "Interrare le piante a fine ciclo come sovescio."
+    ],
+    "yieldKgM2": 1.2,
+    "container": {
+      "suitability": "Discreta",
+      "minLiters": 15,
+      "minDepthCm": 30,
+      "notes": "Possibile ma con resa modesta."
+    }
+  },
+  {
+    "id": "melone",
+    "name": "Melone",
+    "scientificName": "Cucumis melo",
+    "family": "Cucurbitaceae",
+    "category": "Frutto",
+    "emoji": "🍈",
+    "description": "Cucurbitacea molto termofila; il contenuto zuccherino dipende dalle alte temperature e dalla luce nelle settimane finali di maturazione.",
+    "lifecycle": "Annuale",
+    "planting": {
+      "method": "Trapianto o semina",
+      "tempMinMean": 18,
+      "tempMaxMean": 28,
+      "depthCm": 2,
+      "spacingRowCm": 150,
+      "spacingPlantCm": 80
+    },
+    "temperature": {
+      "germMin": 16,
+      "germOpt": 30,
+      "baseGdd": 10,
+      "growthMin": 15,
+      "optMin": 24,
+      "optMax": 30,
+      "growthMax": 36,
+      "frostTender": true,
+      "minSurvival": 3
+    },
+    "gddToMaturity": 1100,
+    "daysToMaturity": 85,
+    "harvestWindowDays": 25,
+    "continuousHarvest": false,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.5,
+      "kcMid": 0.85,
+      "kcEnd": 0.6,
+      "stages": [
+        25,
+        35,
+        40,
+        20
+      ],
+      "rootDepthMin": 0.8,
+      "rootDepthMax": 1.5,
+      "depletionFraction": 0.4,
+      "notes": "Ridurre fortemente l'acqua nelle ultime 2 settimane: frutti più dolci e non spaccati."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 7.5,
+      "sun": "Pieno sole",
+      "notes": "Sciolto, caldo, ben drenato."
+    },
+    "nutrition": {
+      "demand": "Media",
+      "startAfterDays": 20,
+      "intervalDays": 20,
+      "stopBeforeEndDays": 20,
+      "vegetative": "Azoto moderato.",
+      "reproductive": "Potassio per il grado zuccherino.",
+      "organic": "Letame maturo in buca."
+    },
+    "harvest": {
+      "signs": "Il peduncolo si stacca con una leggera pressione (\"slip\"), profumo intenso, retatura in rilievo.",
+      "tips": "Cimare i tralci dopo la 4ª–5ª foglia per anticipare la fruttificazione."
+    },
+    "companions": [
+      "mais",
+      "ravanello"
+    ],
+    "antagonists": [
+      "patata",
+      "cetriolo"
+    ],
+    "pests": [
+      "Oidio",
+      "Fusariosi",
+      "Afidi"
+    ],
+    "tips": [
+      "Al Nord pacciamatura nera e, se possibile, tunnel nelle prime settimane."
+    ],
+    "yieldKgM2": 3,
+    "container": {
+      "suitability": "Sconsigliata",
+      "minLiters": 40,
+      "minDepthCm": 40,
+      "notes": "Tralci lunghi e grande fabbisogno di spazio."
+    }
+  },
+  {
+    "id": "radicchio",
+    "name": "Radicchio",
+    "scientificName": "Cichorium intybus",
+    "family": "Asteraceae",
+    "category": "Foglia",
+    "emoji": "🥬",
+    "description": "Cicoria da foglia rossa tipica del Veneto. Il freddo autunnale accentua la colorazione rossa (antociani) e riduce l'amaro.",
+    "lifecycle": "Biennale (coltivato come annuale)",
+    "planting": {
+      "method": "Semina o trapianto",
+      "tempMinMean": 15,
+      "tempMaxMean": 25,
+      "depthCm": 0.5,
+      "spacingRowCm": 35,
+      "spacingPlantCm": 25
+    },
+    "temperature": {
+      "germMin": 5,
+      "germOpt": 20,
+      "baseGdd": 5,
+      "growthMin": 5,
+      "optMin": 12,
+      "optMax": 22,
+      "growthMax": 30,
+      "frostTender": false,
+      "minSurvival": -7
+    },
+    "gddToMaturity": 1100,
+    "daysToMaturity": 100,
+    "harvestWindowDays": 60,
+    "continuousHarvest": false,
+    "needsVernalization": false,
+    "water": {
+      "kcIni": 0.7,
+      "kcMid": 1.0,
+      "kcEnd": 0.95,
+      "stages": [
+        25,
+        35,
+        30,
+        10
+      ],
+      "rootDepthMin": 0.4,
+      "rootDepthMax": 0.6,
+      "depletionFraction": 0.4,
+      "notes": "Regolare in estate; in autunno bastano spesso le piogge."
+    },
+    "soil": {
+      "phMin": 6.0,
+      "phMax": 7.5,
+      "sun": "Pieno sole",
+      "notes": "Profondo e fresco."
+    },
+    "nutrition": {
+      "demand": "Media",
+      "startAfterDays": 25,
+      "intervalDays": 30,
+      "stopBeforeEndDays": 20,
+      "vegetative": "Azoto moderato.",
+      "reproductive": "—",
+      "organic": "Compost maturo."
+    },
+    "harvest": {
+      "signs": "Cespo compatto e ben colorato dopo i primi freddi.",
+      "tips": "Tagliare al colletto; può ricacciare."
+    },
+    "companions": [
+      "lattuga",
+      "carota"
+    ],
+    "antagonists": [],
+    "pests": [
+      "Lumache",
+      "Afidi",
+      "Marciume del colletto"
+    ],
+    "tips": [
+      "Seminare a giugno-luglio per la raccolta autunno-invernale."
+    ],
+    "yieldKgM2": 2,
+    "container": {
+      "suitability": "Buona",
+      "minLiters": 8,
+      "minDepthCm": 25,
+      "notes": "Si adatta bene a fioriere profonde."
+    }
+  }
+]
