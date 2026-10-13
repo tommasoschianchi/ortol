@@ -14,6 +14,8 @@ export default function NewGarden({ first = false }: { first?: boolean }) {
   const { user } = useAuth()
   const [step, setStep] = useState(1)
   const [name, setName] = useState('')
+  // Nome proposto: "Orto di <nome dell'account>"
+  const suggestedName = `Orto di ${user?.displayName?.trim() || user?.username || 'casa'}`
   const [place, setPlace] = useState<GeoResult>()
   const [cultivation, setCultivation] = useState<Cultivation>('Terra')
   const [soil, setSoil] = useState<SoilType>('MedioImpasto')
@@ -52,7 +54,7 @@ export default function NewGarden({ first = false }: { first?: boolean }) {
     setBusy(true); setErr(undefined)
     try {
       const g = await api.createGarden({
-        name: name.trim() || (cultivation === 'Vaso' ? `Balcone a ${place.name}` : `Orto a ${place.name}`),
+        name: name.trim() || suggestedName,
         city: place.name, region: place.region, country: place.country,
         latitude: place.latitude, longitude: place.longitude, elevation: place.elevation, soil, cultivation,
         widthM: layout.widthM, lengthM: layout.lengthM,
@@ -132,7 +134,7 @@ export default function NewGarden({ first = false }: { first?: boolean }) {
 
           <label className="field full">
             <span>Nome</span>
-            <input className="input" value={name} onChange={e => setName(e.target.value)} placeholder={place ? (pot ? `Balcone a ${place.name}` : `Orto a ${place.name}`) : 'Orto di casa'} />
+            <input className="input" value={name} onChange={e => setName(e.target.value)} placeholder={suggestedName} />
           </label>
           <div className="full">
             <button className="btn" disabled={!place} onClick={goSuggestions}>Vedi cosa piantare</button>

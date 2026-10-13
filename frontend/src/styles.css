@@ -459,18 +459,39 @@ ul.plain li { margin-bottom: 4px; }
 .live .hl, .totals .hl { background: color-mix(in srgb, var(--sprout) 35%, var(--card)); }
 .totals { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 16px; }
 .lot-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
-.lot-list button { width: 100%; display: grid; grid-template-columns: 28px 1fr auto; gap: 10px; align-items: center; background: var(--paper); border: 1px solid transparent; border-radius: var(--r-md); padding: 8px 10px; cursor: pointer; text-align: left; }
+.lot-list button { width: 100%; display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; background: var(--paper); border: 1px solid transparent; border-radius: var(--r-md); padding: 8px 10px; cursor: pointer; text-align: left; }
 .lot-list button:hover { border-color: var(--line); }
 .lot-list .em { font-size: 1.3rem; }
 .lot-list small { display: block; color: var(--muted); font-size: 0.78rem; }
-.lot-list .st { text-align: right; font-weight: 600; font-size: 0.88rem; font-variant-numeric: tabular-nums; }
+.lot-list .nm { font-weight: 600; }
+.lot-list .st { display: flex; gap: 4px; font-size: 1rem; }
 .soil-opts.two { grid-template-columns: 1fr 1fr; }
 .soil-opt.big { padding: 16px; }
 .soil-opt.big b { font-size: 1.05rem; margin-bottom: 4px; }
 
-.overview { margin-bottom: 20px; }
-.overview h3 { margin-bottom: 10px; }
-.ov-stats { display: flex; gap: 16px; flex-wrap: wrap; color: var(--muted); margin-bottom: 10px; }
+/* Impostazioni dell'orto nella pagina della disposizione */
+.garden-settings { margin-top: 24px; }
+
+/* Guida pratica alla messa a dimora (sotto le consociazioni) */
+.howto { margin-top: 12px; border: 1px solid var(--line); border-left: 4px solid var(--soil); border-radius: var(--r-md); background: var(--card); padding: 10px 14px; }
+.howto details { border-top: 1px solid var(--line); padding: 8px 0; }
+.howto details:first-of-type { border-top: 0; }
+.howto summary { cursor: pointer; line-height: 1.4; }
+.howto details > p { margin: 6px 0; }
+.howto ol { margin: 6px 0 8px; padding-left: 20px; display: grid; gap: 4px; }
+.howto-crops { list-style: none; margin: 6px 0 0; padding: 8px 10px; background: var(--paper); border-radius: var(--r-sm); display: grid; gap: 3px; }
+.harvest-guide { border-left-color: var(--harvest); }
+.howto-checks { margin: 2px 0 6px; padding-left: 20px; display: grid; gap: 3px; }
+.howto details > p b { color: var(--ink); }
+
+/* Due righe: sopra la card con dimensioni e legenda, sotto la mappa a tutta larghezza */
+.overview-row { display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
+.overview-map, .overview-info { min-width: 0; }
+.overview-map { padding: 12px; }
+.overview-map .map { margin: 0 auto; }   /* mappa centrata nella card */
+.overview-info h3 { margin-bottom: 8px; }
+.overview-info p:last-child { margin-bottom: 0; }
+.ov-stats { display: flex; gap: 4px 16px; flex-wrap: wrap; color: var(--muted); margin-bottom: 8px; }
 .ov-stats b { color: var(--ink); }
 
 @media (prefers-reduced-motion: reduce) {

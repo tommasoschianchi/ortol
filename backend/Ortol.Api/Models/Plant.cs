@@ -95,6 +95,8 @@ public record HarvestInfo
 {
     public string Signs { get; init; } = "";
     public string Tips { get; init; } = "";
+    /// <summary>Prove pratiche per capire se il prodotto è maturo.</summary>
+    public List<string> Checks { get; init; } = new();
 }
 
 public record ContainerInfo

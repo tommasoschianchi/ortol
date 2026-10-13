@@ -35,6 +35,10 @@ export interface SpeciesSummary {
   temperature: { optMin: number; optMax: number; growthMin: number; growthMax: number; minSurvival: number; plantingMin: number; plantingMax: number }
   /** Consociazioni: id delle specie favorevoli / sfavorevoli (anche nomi fuori catalogo). */
   companions: string[]; antagonists: string[]
+  /** Profondità di semina o d'impianto (cm). */
+  plantingDepthCm?: number
+  /** Segni di maturazione e consigli per la raccolta. */
+  harvestSigns?: string; harvestTips?: string; harvestChecks?: string[]
 }
 
 export interface MonthWindow { month: number; status: WindowStatus; daysToHarvest?: number }
@@ -109,7 +113,7 @@ export interface PlantSpecies {
   water: { kcIni: number; kcMid: number; kcEnd: number; stages: number[]; rootDepthMin: number; rootDepthMax: number; depletionFraction: number; notes: string }
   soil: { phMin: number; phMax: number; sun: string; notes: string }
   nutrition: { demand: string; startAfterDays: number; intervalDays: number; stopBeforeEndDays: number; vegetative: string; reproductive: string; organic: string }
-  harvest: { signs: string; tips: string }
+  harvest: { signs: string; tips: string; checks?: string[] }
   yieldKgM2: number; container: ContainerInfo
   companions: string[]; antagonists: string[]; pests: string[]; tips: string[]
 }
@@ -134,4 +138,8 @@ export interface EditLot {
   speciesId?: string; plantedOn?: string
   /** Coltura già presente nel lotto al momento dell'apertura dell'editor, con la sua idoneità (calcolata dalla sua messa a dimora). */
   cropSpeciesId?: string; cropFitness?: number
+  /** Raccolto stimato della coltura già presente (inizio) e se è già in raccolta. */
+  cropHarvest?: string; cropHarvesting?: boolean
+  /** Segnali della coltura già presente: acqua, concime, raccolta, allerta. */
+  cropBadges?: ('water' | 'fertilize' | 'harvest' | 'alert')[]
 }

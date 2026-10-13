@@ -292,7 +292,7 @@ public class CareService
     {
         bool fruit = p.Category is "Frutto" or "Legume" or "Infiorescenza";
         if (f >= 1) return ("harvest", "In raccolta");
-        if (f < Math.Min(0.08, fIni)) return ("establish", p.Planting.Method.StartsWith("Semina") ? "Germinazione ed emergenza" : "Attecchimento");
+        if (f < Math.Min(0.08, fIni)) return ("establish", p.Planting.Method.StartsWith("Semina") ? "Germinazione" : "Attecchimento");
         if (f < fDev) return ("vegetative", "Sviluppo vegetativo");
         return fruit ? ("reproductive", "Fioritura e allegagione") : ("bulking", p.Category switch
         {

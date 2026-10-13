@@ -1,9 +1,11 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { area, associations, bestSwap, defaultDepth, estimatedYield, newKey, overlaps, plantsInLot, potLiters, round2, type Association } from '../agro'
-import { fmtNum, todayIso } from '../api'
+import { fmtDate, fmtNum, todayIso } from '../api'
 import type { Cultivation, EditLot, PlantListItem, Recommendation } from '../types'
 import AddCropModal from './AddCropModal'
 import GardenMap, { type LotInfo } from './GardenMap'
+import HarvestGuideCard, { type HarvestEstimate } from './HarvestGuideCard'
+import PlantingGuideCard from './PlantingGuideCard'
 import { FitnessDial } from './ui'
 
 export interface LayoutValue { widthM: number; lengthM: number; lots: EditLot[] }
@@ -52,7 +54,21 @@ export function useLotInfo(v: LayoutValue, cultivation: Cultivation, species: Pl
 
 export default function LayoutEditor({ value: v, onChange, cultivation, species, recommendedNow, recommendations, city }: Props) {
   const [adding, setAdding] = useState(false)
-  const [sel, setSel] = useState<string | null>(v.lots[0]?.key ?? null)
+  // Nessun lotto selezionato all'apertura: la scheda del lotto compare solo dopo averne toccato uno
+  const [sel, setSel] = useState<string | null>(null)
+
+  // Un clic in qualunque punto fuori dalle card (e fuori dai comandi dell'editor) deseleziona il lotto
+  useEffect(() => {
+    if (!sel) return
+    const onDown = (e: PointerEvent) => {
+      const t = e.target as Element | null
+      if (!t || !document.contains(t)) return
+      if (t.closest('.panel, .assoc, .howto, .editor-bar, .map, .modal-back, .stickybar, .topbar, button, a, input, select, textarea, label')) return
+      setSel(null)
+    }
+    document.addEventListener('pointerdown', onDown)
+    return () => document.removeEventListener('pointerdown', onDown)
+  }, [sel])
   const [msg, setMsg] = useState<string>()
   const { info, kg, used, problems } = useLotInfo(v, cultivation, species)
   const pot = cultivation === 'Vaso'
@@ -129,6 +145,32 @@ export default function LayoutEditor({ value: v, onChange, cultivation, species,
   const otherList = sortedSpecies.filter(s => !recommendedNow.has(s.species.id))
   const total = round2(v.widthM * v.lengthM)
 
+  // Raccolto stimato per lotto: dalla coltura già in terra, oppure dalla simulazione per una nuova messa a dimora
+  const harvest = useMemo(() => {
+    const today = todayIso()
+    const recById = new Map(recommendations.map(r => [r.species.id, r]))
+    const out: Record<string, HarvestEstimate> = {}
+    for (const l of v.lots) {
+      if (!l.speciesId) continue
+      if (l.cropSpeciesId === l.speciesId) {
+        out[l.key] = l.cropHarvesting ? { label: 'in raccolta', now: true, iso: l.cropHarvest }
+          : l.cropHarvest ? { label: `raccolto ~${dateLabel(l.cropHarvest, today)}`, iso: l.cropHarvest } : { label: 'raccolto incerto' }
+        continue
+      }
+      const planted = l.plantedOn ?? today
+      const rec = recById.get(l.speciesId)
+      let iso: string | undefined
+      if (planted === today && rec?.timing === 'ora' && rec.expectedHarvest) iso = rec.expectedHarvest
+      else {
+        const m = Number(planted.slice(5, 7))
+        const days = byId.get(l.speciesId)?.calendar?.find(c => c.month === m)?.daysToHarvest
+        if (days != null) { const d = new Date(planted + 'T12:00:00'); d.setDate(d.getDate() + days); iso = d.toISOString().slice(0, 10) }
+      }
+      out[l.key] = iso ? { label: `raccolto ~${dateLabel(iso, today)}`, iso } : { label: 'raccolto incerto' }
+    }
+    return out
+  }, [v.lots, recommendations, byId])
+
   return (
     <div className="editor">
       <div className="editor-bar">
@@ -158,13 +200,15 @@ export default function LayoutEditor({ value: v, onChange, cultivation, species,
             Da tastiera: frecce per spostare, Alt + frecce per ridimensionare, Maiuscole per passi di 50 cm.
           </p>
           <AssociationsCard lots={v.lots} species={speciesMap} pot={pot} onSelect={setSel} onSwap={swapCrops} />
+          <PlantingGuideCard lots={v.lots} species={speciesMap} pot={pot} />
+          <HarvestGuideCard lots={v.lots} species={speciesMap} harvest={harvest} />
           {msg && <div className="notice" style={{ marginTop: 8 }}>{msg}</div>}
           {problems.length > 0 && <div className="error" style={{ marginTop: 8 }}>{problems.join(' ')}</div>}
         </div>
 
         <aside className="panel editor-side" aria-live="polite">
           {!lot ? (
-            <Summary v={v} pot={pot} total={total} used={used} kg={kg} info={info} onPick={setSel} />
+            <Summary v={v} pot={pot} total={total} used={used} kg={kg} onPick={setSel} />
           ) : (
             <LotPanel key={lot.key} lot={lot} pot={pot} info={info[lot.key] ?? {}}
               item={lot.speciesId ? byId.get(lot.speciesId) : undefined}
@@ -189,8 +233,13 @@ export default function LayoutEditor({ value: v, onChange, cultivation, species,
   )
 }
 
-function Summary({ v, pot, total, used, kg, info, onPick }: {
-  v: LayoutValue; pot: boolean; total: number; used: number; kg: number; info: Record<string, LotInfo>; onPick: (k: string) => void
+/** Data breve; aggiunge l'anno se diverso da quello corrente. */
+const dateLabel = (iso: string, today: string) => fmtDate(iso) + (iso.slice(0, 4) !== today.slice(0, 4) ? ` ${iso.slice(0, 4)}` : '')
+
+const BADGE = { water: ['💧', 'da annaffiare'], fertilize: ['🧪', 'da concimare'], harvest: ['🧺', 'da raccogliere'], alert: ['⚠️', 'allerta meteo'] } as const
+
+function Summary({ v, pot, total, used, kg, onPick }: {
+  v: LayoutValue; pot: boolean; total: number; used: number; kg: number; onPick: (k: string) => void
 }) {
   return (
     <div className="stack">
@@ -199,13 +248,13 @@ function Summary({ v, pot, total, used, kg, info, onPick }: {
       {v.lots.length === 0 && <p className="small">Ancora nessuna coltura: premi "Aggiungi coltura" per vedere le piante più adatte a questo periodo.</p>}
       <ul className="lot-list">
         {v.lots.map(l => {
-          const i = info[l.key] ?? {}
+          // i segnali valgono solo per la coltura già in terra (non se nel lotto se ne sta mettendo un'altra)
+          const badges = l.cropSpeciesId && l.cropSpeciesId === l.speciesId ? l.cropBadges ?? [] : []
           return (
             <li key={l.key}>
               <button type="button" onClick={() => onPick(l.key)}>
-                <span className="em">{i.species?.emoji ?? '▢'}</span>
-                <span className="nm">{l.name}<small>{i.species?.name ?? 'libero'}</small></span>
-                <span className="st">{fmtNum(area(l), 2)} m²{i.kg != null && <small>~{fmtNum(i.kg)} kg</small>}</span>
+                <span className="nm">{l.name}</span>
+                <span className="st">{badges.map(b => <span key={b} title={BADGE[b][1]} aria-label={BADGE[b][1]}>{BADGE[b][0]}</span>)}</span>
               </button>
             </li>
           )

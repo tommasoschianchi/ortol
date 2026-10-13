@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { api } from '../api'
+import { api, SOILS } from '../api'
 import LayoutEditor, { type LayoutValue, useLotInfo } from '../components/LayoutEditor'
 import { Loading } from '../components/ui'
-import type { Dashboard, EditLot, PlantListItem } from '../types'
+import type { Dashboard, EditLot, PlantListItem, SoilType } from '../types'
 
 export default function LayoutPage() {
   const { id = '' } = useParams()
@@ -14,15 +14,26 @@ export default function LayoutPage() {
   const [initial, setInitial] = useState<EditLot[]>([])
   const [err, setErr] = useState<string>()
   const [busy, setBusy] = useState(false)
+  // Impostazioni dell'orto (prima nella finestra "Impostazioni" della pagina dell'orto)
+  const [name, setName] = useState('')
+  const [soil, setSoil] = useState<SoilType>('MedioImpasto')
 
   useEffect(() => {
     Promise.all([api.dashboard(id), api.plants(id)]).then(([dash, sp]) => {
       setD(dash); setSpecies(sp)
+      setName(dash.garden.name); setSoil(dash.garden.soil)
       const lots: EditLot[] = dash.garden.lots.map(l => {
         const crop = dash.plants.find(p => p.lotId === l.id)
         return {
           key: l.id, id: l.id, name: l.name, x: l.x, y: l.y, w: l.w, h: l.h, depthCm: l.depthCm,
           speciesId: crop?.speciesId, cropSpeciesId: crop?.speciesId, cropFitness: crop?.fitness, plantedOn: crop?.plantedOn,
+          cropHarvest: crop?.harvest.expectedStart, cropHarvesting: crop ? ['ready', 'late', 'ended'].includes(crop.harvest.status) : undefined,
+          cropBadges: crop ? [
+            ...(crop.alerts.some(a => a.level === 'danger') ? ['alert' as const] : []),
+            ...(crop.water.status === 'now' ? ['water' as const] : []),
+            ...(crop.fertilize.status === 'due' ? ['fertilize' as const] : []),
+            ...(crop.harvest.status === 'ready' || crop.harvest.status === 'late' ? ['harvest' as const] : []),
+          ] : undefined,
         }
       })
       setInitial(lots)
@@ -44,8 +55,11 @@ export default function LayoutPage() {
       ...initial.filter(i => i.cropSpeciesId && !value.lots.some(l => l.key === i.key)).map(l => l.name),
     ]
     if (ending.length && !confirm(`Le colture in ${ending.join(', ')} verranno segnate come concluse (il registro resta nello storico). Continuare?`)) return
+    if (!name.trim()) { setErr('Il nome dell\'orto è obbligatorio.'); return }
     setBusy(true); setErr(undefined)
     try {
+      if (name.trim() !== d.garden.name || soil !== d.garden.soil)
+        await api.updateGarden(id, { name: name.trim(), soil })
       await api.saveLayout(id, value.widthM, value.lengthM, value.lots.map(l => ({
         id: l.id, name: l.name, x: l.x, y: l.y, w: l.w, h: l.h, depthCm: l.depthCm, speciesId: l.speciesId, plantedOn: l.plantedOn,
       })))
@@ -53,9 +67,14 @@ export default function LayoutPage() {
     } catch (e) { setErr((e as Error).message); setBusy(false) }
   }
 
+  const remove = async () => {
+    if (!confirm(`Eliminare definitivamente "${d.garden.name}" con tutte le colture e il registro?`)) return
+    try { await api.deleteGarden(id); nav('/') } catch (e) { setErr((e as Error).message) }
+  }
+
   return (
     <div className="wrap wizard">
-      <Link to={`/orto/${id}`} className="linkbtn">Torna all'orto</Link>
+      <Link to={`/orto/${id}`} className="linkbtn">Torna alla home</Link>
       <h1 style={{ marginTop: 10 }}>Disposizione {pot ? 'dei vasi' : 'dell\'orto'}</h1>
       <p className="muted" style={{ margin: '10px 0 18px', maxWidth: '66ch' }}>
         {d.garden.name}, vista dall'alto. Con "Aggiungi coltura" scegli dalla classifica delle piante più adatte al periodo, poi sposta e ridimensiona {pot ? 'i vasi' : 'i lotti'}:
@@ -68,6 +87,25 @@ export default function LayoutPage() {
         </p>
       )}
       <LayoutEditor value={value} onChange={setValue} cultivation={d.garden.cultivation} species={species} recommendedNow={recommendedNow} recommendations={d.recommendations} city={d.garden.city} />
+
+      <section className="panel garden-settings">
+        <h2>Impostazioni {pot ? 'dei vasi' : 'dell\'orto'}</h2>
+        <div className="form-grid" style={{ marginTop: 14 }}>
+          <label className="field full"><span>Nome</span><input className="input" value={name} onChange={e => setName(e.target.value)} /></label>
+          {!pot && (
+            <div className="full">
+              <span className="lbl-strong">Tipo di terreno</span>
+              <div className="soil-opts">
+                {SOILS.map(s => <button key={s.value} type="button" className="soil-opt" aria-pressed={soil === s.value} onClick={() => setSoil(s.value)}><b>{s.label}</b><small>{s.hint}</small></button>)}
+              </div>
+            </div>
+          )}
+          <p className="small muted full">Nome e terreno si salvano insieme alla disposizione. Il terreno cambia l'acqua che il suolo trattiene, quindi i consigli di irrigazione.</p>
+        </div>
+        <div className="row" style={{ marginTop: 12 }}>
+          <button type="button" className="linkbtn danger" onClick={remove}>Elimina {pot ? 'questo spazio' : 'questo orto'}</button>
+        </div>
+      </section>
       {err && <div className="error" style={{ marginTop: 12 }}>{err}</div>}
       <SaveBar value={value} d={d} species={species} busy={busy} onSave={save} onCancel={() => nav(`/orto/${id}`)} />
     </div>
@@ -84,7 +122,7 @@ function SaveBar({ value, d, species, busy, onSave, onCancel }: {
         <button className="btn ghost" onClick={onCancel}>Annulla</button>
         <span className="spacer" />
         {problems.length > 0 && <span className="small" style={{ color: 'var(--danger)' }}>Correggi le sovrapposizioni per salvare</span>}
-        <button className="btn sprout" disabled={busy || problems.length > 0} onClick={onSave}>{busy ? 'Salvo…' : 'Salva disposizione'}</button>
+        <button className="btn sprout" disabled={busy || problems.length > 0} onClick={onSave}>{busy ? 'Salvo…' : 'Salva modifiche'}</button>
       </div>
     </div>
   )

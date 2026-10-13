@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { api, doyToDate, fmtDate, fmtDateLong, fmtNum, fmtWeekday, SOILS, todayIso } from '../api'
 import { useAuth } from '../auth'
 import GardenMap, { type LotInfo } from '../components/GardenMap'
@@ -9,13 +9,11 @@ import { rememberGarden } from './Home'
 
 export default function GardenPage() {
   const { id = '' } = useParams()
-  const nav = useNavigate()
   const [d, setD] = useState<Dashboard>()
   const [err, setErr] = useState<string>()
   const { user } = useAuth()
   const [tab, setTab] = useState<'colture' | 'clima' | 'storico'>('colture')
   const [open, setOpen] = useState<string | null>(null)
-  const [settings, setSettings] = useState(false)
   const [species, setSpecies] = useState<Map<string, SpeciesSummary>>(new Map())
 
   const load = useCallback(() => api.dashboard(id).then(setD).catch(e => setErr(e.message)), [id])
@@ -57,7 +55,6 @@ export default function GardenPage() {
               </p>
             </div>
             <div className="row">
-              <button className="btn ghost small" onClick={() => setSettings(true)}>Impostazioni</button>
               <Link className="btn sprout" to={`/orto/${id}/disposizione`}>Modifica disposizione</Link>
             </div>
           </div>
@@ -107,8 +104,6 @@ export default function GardenPage() {
         </section>
       </div>
 
-      {settings && <Settings d={d} onClose={() => setSettings(false)} onSaved={() => { setSettings(false); load() }}
-        onDeleted={() => nav('/')} />}
     </>
   )
 }
@@ -516,39 +511,6 @@ function ClimateTab({ d }: { d: Dashboard }) {
   )
 }
 
-function Settings({ d, onClose, onSaved, onDeleted }: { d: Dashboard; onClose: () => void; onSaved: () => void; onDeleted: () => void }) {
-  const [name, setName] = useState(d.garden.name)
-  const [soil, setSoil] = useState(d.garden.soil)
-  const save = async () => { await api.updateGarden(d.garden.id, { name, soil }); onSaved() }
-  const del = async () => {
-    if (!confirm(`Eliminare definitivamente "${d.garden.name}" con tutte le colture e il registro?`)) return
-    await api.deleteGarden(d.garden.id); onDeleted()
-  }
-  return (
-    <Modal onClose={onClose} label="Impostazioni orto">
-      <h2>Impostazioni</h2>
-      <div className="form-grid" style={{ marginTop: 16 }}>
-        <label className="field full"><span>Nome</span><input className="input" value={name} onChange={e => setName(e.target.value)} /></label>
-        {d.garden.cultivation === 'Terra' && (
-          <div className="full">
-            <span className="lbl-strong">Tipo di terreno</span>
-            <div className="soil-opts">
-              {SOILS.map(s => <button key={s.value} type="button" className="soil-opt" aria-pressed={soil === s.value} onClick={() => setSoil(s.value)}><b>{s.label}</b><small>{s.hint}</small></button>)}
-            </div>
-          </div>
-        )}
-        <p className="small muted full">Dimensioni e lotti si modificano dalla mappa.</p>
-      </div>
-      <div className="row" style={{ marginTop: 20 }}>
-        <button className="linkbtn danger" onClick={del}>Elimina orto</button>
-        <span className="spacer" />
-        <button className="btn ghost" onClick={onClose}>Annulla</button>
-        <button className="btn" onClick={save}>Salva</button>
-      </div>
-    </Modal>
-  )
-}
-
 /** Vista dall'alto in sola lettura con lo stato di ogni lotto e i totali di resa. */
 function Overview({ d, species, gardenId, onOpen }: { d: Dashboard; species: Map<string, SpeciesSummary>; gardenId: string; onOpen: (plantId: string) => void }) {
   const g = d.garden
@@ -572,33 +534,39 @@ function Overview({ d, species, gardenId, onOpen }: { d: Dashboard; species: Map
   const used = g.lots.reduce((a, l) => a + l.w * l.h, 0)
   const pot = g.cultivation === 'Vaso'
 
+  const legend = `💧 da annaffiare · 🧪 da concimare · 🧺 da raccogliere · ⚠️ allerta meteo.`
+  const tapHint = `Tocca un ${pot ? 'vaso' : 'lotto'} sulla mappa per i dettagli.`
+
   return (
-    <div className="panel overview">
-      <div className="row">
-        <h3>{pot ? 'I vasi' : 'L\'orto'} dall'alto</h3>
-        <span className="spacer" />
+    <div className="overview-row">
+      {/* Card 1: dimensioni e legenda */}
+      <div className="panel overview-info">
+        
         <div className="ov-stats small">
           <span><b>{fmtNum(used, 2)}</b> / {fmtNum(g.widthM * g.lengthM, 2)} m² coltivati</span>
           <span><b>~{fmtNum(d.expectedYieldKg)} kg</b> stimati</span>
           <span><b>{fmtNum(d.harvestedKg)} kg</b> raccolti</span>
         </div>
+        {g.lots.length > 0 && <p className="small muted">{legend}<br />{tapHint}</p>}
       </div>
-      {g.lots.length === 0 ? (
-        <div className="empty" style={{ marginTop: 12 }}>
-          <p className="muted">Non hai ancora diviso lo spazio in {pot ? 'vasi' : 'lotti'}.</p>
-          <Link className="btn sprout" to={`/orto/${gardenId}/disposizione`}>Disegna {pot ? 'i vasi' : 'i lotti'}</Link>
-        </div>
-      ) : (
-        <>
-          <GardenMap widthM={g.widthM} lengthM={g.lengthM} cultivation={g.cultivation} lots={lots} info={info} maxHeight={380}
+
+      {/* Card 2: solo la mappa */}
+      <div className="panel overview-map" aria-label={`Mappa ${pot ? 'dei vasi' : 'dell\'orto'} vista dall'alto`}>
+        {g.lots.length === 0 ? (
+          <div className="empty">
+            <p className="muted">Non hai ancora diviso lo spazio in {pot ? 'vasi' : 'lotti'}.</p>
+            <Link className="btn sprout" to={`/orto/${gardenId}/disposizione`}>Disegna {pot ? 'i vasi' : 'i lotti'}</Link>
+          </div>
+        ) : (
+          <GardenMap widthM={g.widthM} lengthM={g.lengthM} cultivation={g.cultivation} lots={lots} info={info}
+            maxHeight={Math.max(320, Math.min(window.innerHeight * 0.6, 560))}
             selected={sel} onSelect={k => {
               setSel(k)
               const crop = k ? d.plants.find(p => p.lotId === k) : undefined
               if (crop) onOpen(crop.id)
             }} />
-          <p className="small muted" style={{ marginTop: 6 }}>💧 da annaffiare · 🧪 da concimare · 🧺 da raccogliere · ⚠️ allerta meteo. Il cerchio attorno all'ortaggio indica l'avanzamento verso il raccolto (verde = pronto). Tocca un {pot ? 'vaso' : 'lotto'} per i dettagli.</p>
-        </>
-      )}
+        )}
+      </div>
     </div>
   )
 }

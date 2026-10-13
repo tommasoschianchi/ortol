@@ -64,7 +64,12 @@
     },
     "harvest": {
       "signs": "Bacca completamente colorata, consistente ma cedevole alla pressione; il pedicello si stacca facilmente.",
-      "tips": "Raccogliere invaiati se sono previste piogge forti o freddo: maturano bene in casa."
+      "tips": "Raccogliere invaiati se sono previste piogge forti o freddo: maturano bene in casa.",
+      "checks": [
+        "Guarda la base del frutto vicino al picciolo: deve aver perso le spalle verdi.",
+        "Stringi delicatamente: deve cedere appena, come un'albicocca matura, senza essere molle.",
+        "Prova la torsione: un frutto maturo si stacca ruotandolo, uno acerbo resiste."
+      ]
     },
     "companions": [
       "basilico",
@@ -161,7 +166,12 @@
     },
     "harvest": {
       "signs": "Frutti lunghi 15–20 cm, buccia lucida; il fiore apicale può essere ancora attaccato.",
-      "tips": "Raccogliere ogni 2–3 giorni: frutti lasciati sulla pianta ne riducono la produttività."
+      "tips": "Raccogliere ogni 2–3 giorni: frutti lasciati sulla pianta ne riducono la produttività.",
+      "checks": [
+        "Misura il frutto: oltre i 20–25 cm la polpa diventa spugnosa e i semi duri.",
+        "Prova con l'unghia: la buccia di un frutto giovane si incide facilmente.",
+        "Controlla ogni 2 giorni: in estate crescono di diversi centimetri al giorno."
+      ]
     },
     "companions": [
       "fagiolo",
@@ -254,7 +264,12 @@
     },
     "harvest": {
       "signs": "Frutto della dimensione tipica, lucido e sodo; per i colorati attendere il viraggio completo.",
-      "tips": "Tagliare con forbici: i rami sono fragili."
+      "tips": "Tagliare con forbici: i rami sono fragili.",
+      "checks": [
+        "Batti leggermente con il dito: un frutto pronto suona pieno e ha pareti spesse e rigide.",
+        "Per i peperoni rossi o gialli attendi che il colore copra tutto il frutto; un verde maturo è solo una scelta di gusto.",
+        "Se il frutto si piega o cede alla pressione, è rimasto troppo sulla pianta."
+      ]
     },
     "companions": [
       "basilico",
@@ -348,7 +363,12 @@
     },
     "harvest": {
       "signs": "Buccia lucida e tesa; premendo con il dito la polpa torna elastica. Frutto opaco = sovramaturo, semi duri.",
-      "tips": "Raccogliere giovani per frutti più teneri e maggiore produzione."
+      "tips": "Raccogliere giovani per frutti più teneri e maggiore produzione.",
+      "checks": [
+        "Premi con il pollice: se l'impronta torna su lentamente è pronta, se resta è troppo matura.",
+        "Guarda la buccia: deve essere lucida; quando diventa opaca i semi stanno indurendo.",
+        "Taglia un frutto di prova: i semi devono essere piccoli e chiari, non marroni."
+      ]
     },
     "companions": [
       "fagiolo",
@@ -442,7 +462,12 @@
     },
     "harvest": {
       "signs": "Cespo compatto e pieno; per le varietà da taglio foglie di 10–15 cm.",
-      "tips": "Raccogliere al mattino presto, quando le foglie sono turgide."
+      "tips": "Raccogliere al mattino presto, quando le foglie sono turgide.",
+      "checks": [
+        "Premi il centro del cespo: deve essere pieno e sodo (per le varietà a cappuccio).",
+        "Controlla il centro: se si allunga a punta la pianta sta salendo a seme e le foglie diventano amare.",
+        "Per le varietà da taglio raccogli quando le foglie sono lunghe una mano."
+      ]
     },
     "companions": [
       "carota",
@@ -535,7 +560,12 @@
     },
     "harvest": {
       "signs": "Pianta di almeno 15–20 cm con 3–4 palchi di foglie.",
-      "tips": "Cimare sopra un nodo con due foglie: la pianta si ramifica."
+      "tips": "Cimare sopra un nodo con due foglie: la pianta si ramifica.",
+      "checks": [
+        "Raccogli prima della fioritura: quando compaiono le spighe di fiori, l'aroma cala.",
+        "Le foglie devono essere grandi, lucide e profumate se strofinate tra le dita.",
+        "Le ore migliori sono al mattino, quando gli oli essenziali sono più concentrati."
+      ]
     },
     "companions": [
       "pomodoro",
@@ -626,7 +656,12 @@
     },
     "harvest": {
       "signs": "Colletto di 2–3 cm di diametro che affiora dal terreno.",
-      "tips": "Bagnare il terreno prima di estrarle; si conservano in terra fino alle gelate forti."
+      "tips": "Bagnare il terreno prima di estrarle; si conservano in terra fino alle gelate forti.",
+      "checks": [
+        "Scosta la terra alla base: il colletto deve avere almeno 2 cm di diametro.",
+        "Estrai una carota di prova: deve avere colore arancio intenso fino alla punta.",
+        "Assaggia: una carota pronta è dolce e croccante, non fibrosa."
+      ]
     },
     "companions": [
       "cipolla",
@@ -719,7 +754,12 @@
     },
     "harvest": {
       "signs": "Foglie che ingialliscono e si piegano a terra (oltre il 50%).",
-      "tips": "Lasciare asciugare i bulbi al sole 2–3 giorni prima di riporli."
+      "tips": "Lasciare asciugare i bulbi al sole 2–3 giorni prima di riporli.",
+      "checks": [
+        "Osserva il collo: quando si ammorbidisce e le foglie si piegano da sole, la cipolla ha smesso di crescere.",
+        "Scosta la terra: la buccia esterna deve essere secca e colorata.",
+        "Per le cipolle fresche puoi raccogliere prima, quando il bulbo ha la dimensione che preferisci."
+      ]
     },
     "companions": [
       "carota",
@@ -814,7 +854,12 @@
     },
     "harvest": {
       "signs": "Due terzi delle foglie ingiallite e secche.",
-      "tips": "Annodare le foglie a inizio maggio favorisce l'ingrossamento (pratica tradizionale)."
+      "tips": "Annodare le foglie a inizio maggio favorisce l'ingrossamento (pratica tradizionale).",
+      "checks": [
+        "Conta le foglie: quando le ultime 5–6 restano verdi e le altre sono secche è il momento giusto.",
+        "Estrai una testa di prova: gli spicchi devono riempire bene le tuniche, senza che queste si stiano aprendo.",
+        "Non aspettare che tutte le foglie secchino: le tuniche si spaccano e l'aglio si conserva peggio."
+      ]
     },
     "companions": [
       "fragola",
@@ -910,7 +955,12 @@
     },
     "harvest": {
       "signs": "Piante completamente secche; la buccia non si stacca strofinandola col pollice.",
-      "tips": "Raccogliere con terreno asciutto e far asciugare all'ombra."
+      "tips": "Raccogliere con terreno asciutto e far asciugare all'ombra.",
+      "checks": [
+        "Per le patate novelle: scava ai lati di una pianta quando fiorisce e prendi i tuberi più grossi.",
+        "Per la conservazione aspetta 2 settimane dopo che le piante sono secche: la buccia si indurisce.",
+        "Strofina la buccia con il pollice: se non si sfoglia, è pronta per essere conservata."
+      ]
     },
     "companions": [
       "fagiolo",
@@ -1005,7 +1055,12 @@
     },
     "harvest": {
       "signs": "Fagiolini: baccelli turgidi che si spezzano netti, semi appena accennati. Da sgranare: baccelli secchi.",
-      "tips": "Raccogliere ogni 2–3 giorni per prolungare la produzione."
+      "tips": "Raccogliere ogni 2–3 giorni per prolungare la produzione.",
+      "checks": [
+        "Spezza un baccello: deve rompersi con uno schiocco netto, senza fili.",
+        "Guarda in controluce: i semi dentro si devono appena intravedere.",
+        "Per i fagioli secchi aspetta che i baccelli siano gialli e croccanti e che i semi suonino dentro."
+      ]
     },
     "companions": [
       "patata",
@@ -1101,7 +1156,12 @@
     },
     "harvest": {
       "signs": "Baccelli pieni e verde brillante, semi teneri e dolci.",
-      "tips": "Gli zuccheri si convertono rapidamente in amido: consumare subito."
+      "tips": "Gli zuccheri si convertono rapidamente in amido: consumare subito.",
+      "checks": [
+        "Tocca il baccello: deve essere pieno e liscio, senza essere gonfio o rugoso.",
+        "Apri un baccello: i semi devono essere tondi, verde brillante e dolci all'assaggio.",
+        "Se il baccello diventa opaco o giallastro i piselli sono già farinosi."
+      ]
     },
     "companions": [
       "carota",
@@ -1194,7 +1254,12 @@
     },
     "harvest": {
       "signs": "Frutto verde scuro, sodo, prima che ingiallisca.",
-      "tips": "Raccogliere spesso: i frutti maturi bloccano la produzione."
+      "tips": "Raccogliere spesso: i frutti maturi bloccano la produzione.",
+      "checks": [
+        "Misura: in genere 15–20 cm per quelli da insalata, 5–10 cm per quelli da sottaceto.",
+        "La buccia deve essere verde uniforme: le zone gialle indicano sovramaturazione e semi duri.",
+        "Stringi leggermente: deve essere sodo, non spugnoso."
+      ]
     },
     "companions": [
       "fagiolo",
@@ -1286,7 +1351,12 @@
     },
     "harvest": {
       "signs": "Rosette con 6–8 foglie ben sviluppate.",
-      "tips": "Raccolta a foglie esterne per più tagli."
+      "tips": "Raccolta a foglie esterne per più tagli.",
+      "checks": [
+        "Raccogli quando le foglie esterne sono lunghe 8–10 cm, prima che il centro si allunghi.",
+        "Se la pianta forma uno stelo centrale sta salendo a seme: raccogli subito tutta la pianta.",
+        "Le foglie migliori sono tenere e scure, senza punte ingiallite."
+      ]
     },
     "companions": [
       "fragola",
@@ -1377,7 +1447,12 @@
     },
     "harvest": {
       "signs": "Foglie esterne lunghe 20–30 cm.",
-      "tips": "Lasciare sempre il cuore: ricaccia continuamente."
+      "tips": "Lasciare sempre il cuore: ricaccia continuamente.",
+      "checks": [
+        "Scegli le foglie esterne quando le coste sono lunghe 20–30 cm e ancora tenere.",
+        "Spezza una costa: deve rompersi netta e croccante, non piegarsi.",
+        "Lascia sempre le foglie centrali: la pianta continua a produrre."
+      ]
     },
     "companions": [
       "cipolla",
@@ -1468,7 +1543,12 @@
     },
     "harvest": {
       "signs": "Corimbo compatto, bianco, di 15–20 cm, prima che si apra.",
-      "tips": "Legare le foglie sopra il corimbo per mantenerlo bianco (imbianchimento)."
+      "tips": "Legare le foglie sopra il corimbo per mantenerlo bianco (imbianchimento).",
+      "checks": [
+        "Scosta le foglie e guarda il corimbo ogni 2–3 giorni: cresce in fretta.",
+        "Deve essere compatto e liscio: se i granuli si separano o compaiono peli è già oltre.",
+        "Se ingiallisce è stato al sole: copri il corimbo con le sue foglie qualche giorno prima."
+      ]
     },
     "companions": [
       "sedano",
@@ -1567,7 +1647,12 @@
     },
     "harvest": {
       "signs": "Testa compatta, boccioli chiusi verde scuro.",
-      "tips": "Tagliare con 10 cm di stelo: partiranno i getti laterali."
+      "tips": "Tagliare con 10 cm di stelo: partiranno i getti laterali.",
+      "checks": [
+        "Guarda i singoli boccioli: devono essere piccoli e serrati, senza puntini gialli.",
+        "Raccogli appena il primo bocciolo accenna a ingiallire: in pochi giorni fiorisce.",
+        "Dopo la testa principale controlla i getti laterali: crescono per settimane."
+      ]
     },
     "companions": [
       "sedano",
@@ -1659,7 +1744,12 @@
     },
     "harvest": {
       "signs": "Testa dura e compatta alla pressione.",
-      "tips": "Resiste in campo diverse settimane in inverno."
+      "tips": "Resiste in campo diverse settimane in inverno.",
+      "checks": [
+        "Premi la testa con il palmo: deve essere dura e non cedere.",
+        "Le foglie esterne della testa devono essere tese e lucide.",
+        "Se la testa si crepa, raccogli subito: dopo piogge abbondanti succede spesso."
+      ]
     },
     "companions": [
       "sedano",
@@ -1752,7 +1842,12 @@
     },
     "harvest": {
       "signs": "Foglie di 8–12 cm.",
-      "tips": "Taglio a 2–3 cm dal suolo: ricaccia 2–3 volte."
+      "tips": "Taglio a 2–3 cm dal suolo: ricaccia 2–3 volte.",
+      "checks": [
+        "Raccogli le foglie quando sono lunghe 8–12 cm: più grandi diventano piccanti e fibrose.",
+        "Se compaiono steli con fiori bianchi, la pianta sta salendo a seme: raccogli tutto.",
+        "Assaggia una foglia: il piccante cresce con il caldo e con l'età della foglia."
+      ]
     },
     "companions": [
       "lattuga",
@@ -1841,7 +1936,12 @@
     },
     "harvest": {
       "signs": "Steli con 3 segmenti di foglie.",
-      "tips": "Tagliare gli steli esterni alla base."
+      "tips": "Tagliare gli steli esterni alla base.",
+      "checks": [
+        "Raccogli gli steli esterni con almeno 3 segmenti di foglie, partendo dalla base.",
+        "Le foglie devono essere verde scuro e profumate se strofinate.",
+        "Lascia sempre il cuore della pianta, da cui nascono i nuovi steli."
+      ]
     },
     "companions": [
       "pomodoro",
@@ -1930,7 +2030,12 @@
     },
     "harvest": {
       "signs": "Frutto rosso uniforme fino al colletto, profumato.",
-      "tips": "Raccogliere col picciolo nelle ore fresche."
+      "tips": "Raccogliere col picciolo nelle ore fresche.",
+      "checks": [
+        "Il frutto deve essere rosso fino alla base, senza la punta bianca vicino al calice.",
+        "Annusa: una fragola matura profuma anche senza toccarla.",
+        "Raccogli al mattino, quando è fresca, e solo i frutti completamente colorati: dopo non maturano più."
+      ]
     },
     "companions": [
       "aglio",
@@ -2026,7 +2131,12 @@
     },
     "harvest": {
       "signs": "Peduncolo secco e sugheroso, buccia dura che non si incide con l'unghia.",
-      "tips": "Lasciare 5–10 cm di peduncolo e curare al sole 10 giorni per la conservazione."
+      "tips": "Lasciare 5–10 cm di peduncolo e curare al sole 10 giorni per la conservazione.",
+      "checks": [
+        "Batti la buccia con le nocche: deve suonare vuota.",
+        "Prova a incidere la buccia con l'unghia: se non lascia segno è pronta.",
+        "Il colore della buccia deve essere pieno e la parte appoggiata a terra gialla o arancio, non bianca."
+      ]
     },
     "companions": [
       "mais",
@@ -2116,7 +2226,12 @@
     },
     "harvest": {
       "signs": "Radice di 2–3 cm che affiora dal terreno.",
-      "tips": "Non ritardare: diventano spugnosi in pochi giorni."
+      "tips": "Non ritardare: diventano spugnosi in pochi giorni.",
+      "checks": [
+        "Scosta la terra alla base delle foglie: la radice deve avere 2–3 cm di diametro.",
+        "Non aspettare: dopo pochi giorni diventa spugnoso e piccante.",
+        "Estraine uno di prova: deve essere sodo e croccante."
+      ]
     },
     "companions": [
       "lattuga",
@@ -2207,7 +2322,12 @@
     },
     "harvest": {
       "signs": "Grumolo bianco, compatto, grande come un pugno.",
-      "tips": "Rincalzare 2–3 settimane prima per imbianchire."
+      "tips": "Rincalzare 2–3 settimane prima per imbianchire.",
+      "checks": [
+        "Il grumolo deve essere largo almeno quanto un pugno e appiattito o tondeggiante, secondo la varietà.",
+        "Premi: deve essere sodo e bianco, senza parti che si aprono.",
+        "Se compare uno stelo centrale sta montando a seme: raccogli subito."
+      ]
     },
     "companions": [
       "lattuga",
@@ -2299,7 +2419,12 @@
     },
     "harvest": {
       "signs": "Baccelli gonfi, semi verdi teneri (consumo fresco) o baccelli neri secchi (granella).",
-      "tips": "Cimare le piante in fioritura per ridurre gli afidi neri."
+      "tips": "Cimare le piante in fioritura per ridurre gli afidi neri.",
+      "checks": [
+        "Tocca il baccello: deve essere gonfio e liscio, con i semi che si sentono pieni.",
+        "Apri un baccello: la cicatrice del seme (ilo) verde o bianca indica fave tenere; se è nera sono dure.",
+        "Per la granella aspetta baccelli neri e secchi."
+      ]
     },
     "companions": [
       "patata",
@@ -2391,7 +2516,12 @@
     },
     "harvest": {
       "signs": "Il peduncolo si stacca con una leggera pressione (\"slip\"), profumo intenso, retatura in rilievo.",
-      "tips": "Cimare i tralci dopo la 4ª–5ª foglia per anticipare la fruttificazione."
+      "tips": "Cimare i tralci dopo la 4ª–5ª foglia per anticipare la fruttificazione.",
+      "checks": [
+        "Annusa la zona del picciolo: un melone pronto profuma intensamente.",
+        "Premi con il pollice l'estremità opposta al picciolo: deve cedere appena.",
+        "Guarda la buccia: la retatura deve essere in rilievo e il fondo da verde a giallo-crema."
+      ]
     },
     "companions": [
       "mais",
@@ -2482,7 +2612,12 @@
     },
     "harvest": {
       "signs": "Cespo compatto e ben colorato dopo i primi freddi.",
-      "tips": "Tagliare al colletto; può ricacciare."
+      "tips": "Tagliare al colletto; può ricacciare.",
+      "checks": [
+        "Aspetta i primi freddi: le basse temperature intensificano il colore rosso e l'amaro.",
+        "Premi il cespo: deve essere chiuso e compatto.",
+        "Le foglie esterne possono essere rovinate: conta il cuore, che deve essere sodo e colorato."
+      ]
     },
     "companions": [
       "lattuga",

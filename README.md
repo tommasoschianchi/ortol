@@ -58,6 +58,8 @@ La base di conoscenza (`backend/Ortol.Api/Data/plants.json`) copre 27 specie con
 
 Il modello dei dati (diagramma relazionale, tabelle, chiavi primarie ed esterne) è documentato in [`docs/DATABASE.md`](docs/DATABASE.md); lo script PostgreSQL è [`docs/schema.sql`](docs/schema.sql).
 
+Tutti i dati delle piante (tabelle e schede) e le formule usate dal programma (gradi-giorno, simulazione del ciclo, idoneità, bilancio idrico, concimazione, resa, consociazioni) sono in [`docs/PIANTE.md`](docs/PIANTE.md). Il documento si rigenera dal catalogo con `python3 tools/genera_doc_piante.py`.
+
 ## API principali
 
 | Metodo | Percorso | Descrizione |

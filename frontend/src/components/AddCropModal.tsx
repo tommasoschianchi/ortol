@@ -126,6 +126,9 @@ export default function AddCropModal({ cultivation, city, widthM, lengthM, lots,
                     {pot && s.container.suitability !== 'Ottima' && <span className="chip">In vaso: {s.container.suitability.toLowerCase()}</span>}
                   </div>
                   <div className="facts-line">
+                    <span className="fact" title="Come si mette a dimora questa pianta">
+                      🌱 <b>{s.plantingMethod}</b>
+                    </span>
                     <span className="fact" title="Temperature medie dell'aria adatte alla pianta">
                       🌡️ min <b>{fmtNum(t.growthMin)}°</b> · ottimale <b>{fmtNum(t.optMin)}–{fmtNum(t.optMax)}°</b> · max <b>{fmtNum(t.growthMax)}°</b>
                       <span className="muted"> · {s.frostTender ? 'non sopporta il gelo' : `resiste fino a ${fmtNum(t.minSurvival)}°`}</span>

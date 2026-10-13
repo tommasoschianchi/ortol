@@ -69,8 +69,8 @@ function TopBar() {
         <nav aria-label="Principale">
           {gid ? (
             <>
-              <NavLink to={`/orto/${gid}`} end>Il mio orto</NavLink>
-              <NavLink to={`/orto/${gid}/disposizione`}>Mappa</NavLink>
+              <NavLink to={`/orto/${gid}`} end>Home</NavLink>
+              <NavLink to={`/orto/${gid}/disposizione`}>Il mio orto</NavLink>
               <NavLink to={`/orto/${gid}/piante`}>Piante</NavLink>
             </>
           ) : (
