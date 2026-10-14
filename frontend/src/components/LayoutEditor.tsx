@@ -192,7 +192,7 @@ export default function LayoutEditor({ value: v, onChange, cultivation, species,
 
       <div className="editor-grid">
         <div>
-          <GardenMap widthM={v.widthM} lengthM={v.lengthM} cultivation={cultivation} lots={v.lots} info={info}
+          <GardenMap widthM={v.widthM} lengthM={v.lengthM} cultivation={cultivation} lots={v.lots} info={info} fixedScale
             selected={sel} onSelect={setSel}
             onChangeLot={(key, r) => patch(key, r)} />
           <p className="small muted" style={{ marginTop: 8 }}>
@@ -200,8 +200,8 @@ export default function LayoutEditor({ value: v, onChange, cultivation, species,
             Da tastiera: frecce per spostare, Alt + frecce per ridimensionare, Maiuscole per passi di 50 cm.
           </p>
           <AssociationsCard lots={v.lots} species={speciesMap} pot={pot} onSelect={setSel} onSwap={swapCrops} />
-          <PlantingGuideCard lots={v.lots} species={speciesMap} pot={pot} />
-          <HarvestGuideCard lots={v.lots} species={speciesMap} harvest={harvest} />
+          <PlantingGuideCard lots={v.lots} species={speciesMap} pot={pot} selected={sel} />
+          <HarvestGuideCard lots={v.lots} species={speciesMap} harvest={harvest} selected={sel} />
           {msg && <div className="notice" style={{ marginTop: 8 }}>{msg}</div>}
           {problems.length > 0 && <div className="error" style={{ marginTop: 8 }}>{problems.join(' ')}</div>}
         </div>

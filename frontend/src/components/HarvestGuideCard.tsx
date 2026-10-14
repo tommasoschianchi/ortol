@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { todayIso } from '../api'
 import type { EditLot, SpeciesSummary } from '../types'
 
@@ -8,9 +8,16 @@ export interface HarvestEstimate { label: string; iso?: string; now?: boolean }
 const daysBetween = (a: string, b: string) => Math.round((new Date(b + 'T12:00:00').getTime() - new Date(a + 'T12:00:00').getTime()) / 86400000)
 
 /** Card "Quando raccogliere": per ogni coltura sulla mappa, data stimata, segni di maturazione e come raccogliere. */
-export default function HarvestGuideCard({ lots, species, harvest }: {
+export default function HarvestGuideCard({ lots, species, harvest, selected }: {
   lots: EditLot[]; species: Map<string, SpeciesSummary>; harvest: Record<string, HarvestEstimate>
+  /** Lotto selezionato sulla mappa: apre la sua voce. */
+  selected?: string | null
 }) {
+  // Tutte chiuse; si aprono cliccandole o selezionando il lotto sulla mappa
+  const [open, setOpen] = useState<Set<string>>(new Set())
+  useEffect(() => { if (selected && lots.some(l => l.key === selected && l.speciesId)) setOpen(new Set([selected])) }, [selected]) // eslint-disable-line react-hooks/exhaustive-deps
+  const toggle = (k: string) => setOpen(o => { const n = new Set(o); if (n.has(k)) n.delete(k); else n.add(k); return n })
+
   const rows = useMemo(() => lots
     .filter(l => l.speciesId && species.has(l.speciesId))
     .map(l => ({ l, sp: species.get(l.speciesId!)!, h: harvest[l.key] ?? { label: 'raccolto incerto' } }))
@@ -25,7 +32,7 @@ export default function HarvestGuideCard({ lots, species, harvest }: {
         <b>Quando raccogliere</b>
         <span className="small muted">date stimate e segni da controllare</span>
       </div>
-      {rows.map(({ l, sp, h }, i) => {
+      {rows.map(({ l, sp, h }) => {
         const left = h.iso && !h.now ? daysBetween(today, h.iso) : undefined
         const when = h.now ? 'in raccolta ora'
           : left == null ? 'data non stimabile con il clima previsto'
@@ -33,8 +40,8 @@ export default function HarvestGuideCard({ lots, species, harvest }: {
           : left <= 10 ? `${h.label.replace('raccolto ', '')} · tra ${left} giorni`
           : `${h.label.replace('raccolto ', '')} · tra ${left < 60 ? `${left} giorni` : `circa ${Math.round(left / 30)} mesi`}`
         return (
-          <details key={l.key} open={i === 0}>
-            <summary>
+          <details key={l.key} open={open.has(l.key)}>
+            <summary onClick={e => { e.preventDefault(); toggle(l.key) }}>
               <span aria-hidden="true">{sp.emoji}</span> <b>{sp.name}</b>
               {l.name !== sp.name && <span className="muted small"> ({l.name})</span>}
               <span className={`chip${h.now || (left != null && left <= 10) ? ' ok' : ''}`} style={{ marginLeft: 8 }}>{when}</span>

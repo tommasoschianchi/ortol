@@ -413,6 +413,8 @@ ul.plain li { margin-bottom: 4px; }
 
 /* ---------- map ---------- */
 .map-wrap { width: 100%; overflow: hidden; }
+.map-wrap.scroll { overflow: auto; }
+.map-wrap.scroll .map { max-width: none; }
 .map { display: block; touch-action: none; user-select: none; -webkit-user-select: none; max-width: 100%; }
 .map .ruler { font-size: 10px; fill: var(--muted); font-family: var(--text); }
 .map .grid { stroke: rgb(255 255 255 / 0.22); stroke-width: 1; }

@@ -36,9 +36,18 @@ interface Props {
   onChangeLot?: (key: string, r: Rect) => void
   maxHeight?: number
   label?: string
+  /**
+   * Scala fissa: la scala (px per metro) non dipende dalle dimensioni dell'orto ma da un'area di riferimento di
+   * 10 × 7 m che riempie lo spazio disponibile. Ingrandendo l'orto il disegno cresce; oltre 10 m di larghezza
+   * o 7 m di lunghezza compaiono le barre di scorrimento. Il risultato è lo stesso dopo il salvataggio e la ricarica.
+   */
+  fixedScale?: boolean
 }
 
-export default function GardenMap({ widthM: W, lengthM: L, cultivation, lots, info, selected, onSelect, onChangeLot, maxHeight, label }: Props) {
+/** Area (m) che entra senza scorrimento nella mappa a scala fissa. */
+export const FIXED_VIEW_W = 10, FIXED_VIEW_L = 7
+
+export default function GardenMap({ widthM: W, lengthM: L, cultivation, lots, info, selected, onSelect, onChangeLot, maxHeight, label, fixedScale }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
   const [cw, setCw] = useState(600)
@@ -57,7 +66,9 @@ export default function GardenMap({ widthM: W, lengthM: L, cultivation, lots, in
 
   const maxH = maxHeight ?? Math.max(260, Math.min(typeof window !== 'undefined' ? window.innerHeight * 0.62 : 520, 640))
   const Ws = Math.max(W, 0.2), Ls = Math.max(L, 0.2)
-  const s = Math.max(4, Math.min((cw - PAD_L - PAD_R) / Ws, (maxH - PAD_T - PAD_B) / Ls))
+  const fitTo = (w: number, l: number) => Math.max(4, Math.min((cw - PAD_L - PAD_R) / w, (maxH - PAD_T - PAD_B) / l))
+  // Normale: l'orto riempie lo spazio. Scala fissa: lo spazio corrisponde a 10 × 7 m, oltre si scorre.
+  const s = fixedScale ? fitTo(FIXED_VIEW_W, FIXED_VIEW_L) : fitTo(Ws, Ls)
   const svgW = PAD_L + Ws * s + PAD_R, svgH = PAD_T + Ls * s + PAD_B
 
   const toM = (e: { clientX: number; clientY: number }) => {
@@ -126,7 +137,9 @@ export default function GardenMap({ widthM: W, lengthM: L, cultivation, lots, in
   const hs = editable && typeof window !== 'undefined' && window.matchMedia?.('(pointer: coarse)').matches ? 16 : 10
 
   return (
-    <div ref={wrapRef} className="map-wrap">
+    <div ref={wrapRef} className={`map-wrap${fixedScale ? ' scroll' : ''}`}
+      // a scala fissa l'area visibile è alta 7 m (+ righello e spazio per la barra orizzontale): oltre si scorre
+      style={fixedScale ? { maxHeight: PAD_T + FIXED_VIEW_L * s + PAD_B + 16 } : undefined}>
       <svg ref={svgRef} width={svgW} height={svgH} className={`map${editable ? ' editable' : ''}`}
         role="group" aria-label={label ?? `Vista dall'alto, ${fmtNum(W, 2)} × ${fmtNum(L, 2)} m`}
         onPointerMove={move} onPointerUp={end} onPointerCancel={end}

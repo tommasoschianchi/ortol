@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { fmtNum } from '../api'
 import type { EditLot, SpeciesSummary } from '../types'
 
@@ -93,7 +93,17 @@ const GUIDE: Record<Technique, { icon: string; title: string; when: string; step
 }
 
 /** Card che spiega come si mettono a dimora, in pratica, le colture presenti sulla mappa (per tecnica). */
-export default function PlantingGuideCard({ lots, species, pot }: { lots: EditLot[]; species: Map<string, SpeciesSummary>; pot: boolean }) {
+export default function PlantingGuideCard({ lots, species, pot, selected }: {
+  lots: EditLot[]; species: Map<string, SpeciesSummary>; pot: boolean
+  /** Lotto selezionato sulla mappa: apre le tecniche della sua coltura. */
+  selected?: string | null
+}) {
+  // Tutte chiuse; si aprono cliccandole o selezionando sulla mappa un lotto con una coltura che le usa
+  const [open, setOpen] = useState<Set<Technique>>(new Set())
+  const selSpecies = (() => { const l = lots.find(x => x.key === selected); return l?.speciesId ? species.get(l.speciesId) : undefined })()
+  useEffect(() => { if (selSpecies) setOpen(new Set(techniquesOf(selSpecies.plantingMethod))) }, [selSpecies?.id, selected]) // eslint-disable-line react-hooks/exhaustive-deps
+  const toggle = (t: Technique) => setOpen(o => { const n = new Set(o); if (n.has(t)) n.delete(t); else n.add(t); return n })
+
   const groups = useMemo(() => {
     const seen = new Set<string>()
     const map = new Map<Technique, SpeciesSummary[]>()
@@ -113,11 +123,11 @@ export default function PlantingGuideCard({ lots, species, pot }: { lots: EditLo
         <b>Come mettere a dimora</b>
         <span className="small muted">le colture sulla mappa, per tecnica</span>
       </div>
-      {groups.map(({ t, crops }, i) => {
+      {groups.map(({ t, crops }) => {
         const g = GUIDE[t]
         return (
-          <details key={t} open={i === 0}>
-            <summary>
+          <details key={t} open={open.has(t)}>
+            <summary onClick={e => { e.preventDefault(); toggle(t) }}>
               <span aria-hidden="true">{g.icon}</span> <b>{g.title}</b>
               <span className="muted small"> · {crops.map(c => c.name).join(', ')}</span>
             </summary>
